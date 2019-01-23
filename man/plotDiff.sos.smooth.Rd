@@ -54,6 +54,7 @@ the coefficients of s1 and s2. To get the confidence intervals we need only diag
 which here is calculated efficiently (without computing the whole of Cov(sd)).
 }
 \examples{
+\dontrun{
 #### 1) Simulate data and add factors uncorrelated to the response
 library(mgcViz)
 set.seed(0)
@@ -95,7 +96,6 @@ pl0 + l_fitRaster() + l_fitContour() + l_coordContour() + l_bound()
 # Plot p-values for significance of differences
 pl0 + l_pvRaster() + l_pvContour(breaks=c(0.05, 0.1, 0.2, 0.3, 0.5))
 
-\dontrun{
 # Using scheme = 1
 pl1 <- plotDiff(s1 = sm(bp, 1), s2 = sm(bp, 2), scheme = 1) 
 pl1 + l_fitRaster() + l_fitContour()

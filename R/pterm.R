@@ -25,6 +25,7 @@
 #' pt <- pterm(o, 1)
 #' plot(pt, n = 60) + l_ciPoly() + l_fitLine() + l_ciLine() + l_points()
 #' 
+#' \dontrun{
 #' # Plot effect of 'x3'
 #' pt <- pterm(o, 1)
 #' plot(pt, n = 60) + l_fitLine() + l_ciLine(colour = 2)
@@ -74,11 +75,19 @@
 #' pt <- pterm(o, 4)
 #' plot(pt) + l_ciBar(colour = "blue") + l_fitPoints(colour = "red") + 
 #'            l_rug() 
-#' 
+#' }
 #' @rdname pterm
 #' @export pterm
 #' 
 pterm <- function(o, select){
+  
+  if( inherits(o, "list") ){
+    if( all(sapply(o, function(.x){inherits(.x, "gamViz")})) == FALSE ){
+      stop("Object \"o\" should be of class \"mgamViz\" or (a list of) \"gamViz\" objects")
+    }
+    if( is.null(names(o)) ){ names(o) <- 1:length(o) }
+    class(o) <- "mgamViz"
+  }
   
   if( inherits(o, "mgamViz") ){
     out <- lapply(o, pterm, select = select)
@@ -95,24 +104,29 @@ pterm <- function(o, select){
   np <- sapply(order, length)
   tot <- sum( np )
   
-  vNam <- unlist(sapply(terms, function(.inp) attr(.inp, "term.labels")))[select]
-  nam <- if(length(terms)>1){ attr(terms, "term.labels")[select] } else { attr(terms[[1]], "term.labels")[select] }
-  cls <- unlist(sapply(terms, function(.inp) unname(attr(.inp, "dataClasses"))[-1]))[select]
-  
-  # We treat ordered factors as simple factors
-  if(cls == "ordered"){ cls <- "factor" }
-
   if(length(select)>1){ stop("select should be a scalar") }
   if(select > tot){ stop(paste("select should be smaller than", tot, "the number of parametric terms in gamObject")) }
   
+  vNam <- unlist(sapply(terms, function(.inp) attr(.inp, "term.labels")))[select]
+  nam <- if(length(terms)>1){ attr(terms, "term.labels")[select] } else { attr(terms[[1]], "term.labels")[select] }
+  
+  ord <- unlist(order)[[select]]
+  if(ord > 1){ # Dealing with interactions OR ...
+    cls <- "interaction"
+  } else {     # ... simple effect
+    cls <- unlist(sapply(terms, function(.inp) unname(attr(.inp, "dataClasses"))[-1]))[select]
+  }
+  
+  if(cls == "ordered"){ cls <- "factor" } # We treat ordered factors as simple factors
+
   out <- list("ism" = select, 
               "name" = nam,
               "varName" = vNam,
               "class" = cls,  
-              "order" = unlist(order)[[select]],
+              "order" = ord,
               "gObj" = o)
 
-  cl <- paste("pterm", .simpleCap(.mapVarClass(cls)), sep = '')
+  cl <- paste0("pterm", .simpleCap(.mapVarClass(cls)))
   
   class(out) <- cl
   

@@ -8,7 +8,8 @@
   allTerms = FALSE, ...)
 }
 \arguments{
-\item{x}{an object of class \code{mgamViz}, the output of a \link{getViz} call.}
+\item{x}{an object of class \code{mgamViz}, the output of a \link{getViz} call. Alternatively x can
+be a list of fitted GAM models, each having the same model formula.}
 
 \item{n}{number of points used for each 1-d plot. For a nice smooth plot
 this needs to be several times the estimated degrees of freedom for the smooth.}
@@ -36,6 +37,7 @@ It is basically a wrapper around plotting methods that are specific to
 individual smooth effect classes (such as \link{plot.multi.mgcv.smooth.1D}).
 }
 \examples{
+\dontrun{
 library(mgcViz)
 set.seed(2) ## simulate some data...
 dat <- gamSim(1,n=500,dist="normal",scale=2)
@@ -48,5 +50,29 @@ fit <- mqgamV(y ~ fac + s(x0) + s(x1, x2) + x3 + logi, data = dat,
               qu = c(0.2, 0.4, 0.6, 0.8))
 
 print(plot(fit, select = 1:4, allTerms = T), pages = 1)
+
+# Example where we are fitting the same model to different datasets, but
+# plotting the estimate effects together 
+dat <- list()
+for(ii in 1:4){
+  # Simulate 4 datasets, we are adding 2 factor variables "fac" and "ref" just
+  # for illustrating the plotting method (the two factors have no effect on y)
+  n <- 1000
+  dat[[ii]] <- gamSim(1,n=n,dist="normal",scale=2)
+  dat[[ii]]$fac <- as.factor( sample(c("A1", "A2", "A3"), n, replace = TRUE) )
+  dat[[ii]]$ref <- as.factor( sample(letters[1:10], n, replace = TRUE) )
+}
+
+# Estimating model on each dataset
+mods <- list()
+for(ii in 1:4){
+  mods[[ii]] <- gamV(y~s(x0)+s(x1, x2)+x3+fac+s(ref, bs = "re"), data = dat[[ii]])
+}
+
+# Names will be used to identify the four models we have fitted 
+names(mods) <- c("M1", "M2", "M3", "M4")
+# Plotting on the same plots
+print(plot.mgamViz(mods, allTerms = TRUE), pages = 1)
+}
 
 }

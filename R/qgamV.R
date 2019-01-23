@@ -11,6 +11,7 @@
 #' @return An object of class "gamViz" which can, for instance, be plotted using [plot.gamViz].
 #' @name qgamV
 #' @examples 
+#' \dontrun{
 #' library(mgcViz)
 #' set.seed(2) ## simulate some data...
 #' dat <- gamSim(2,n=1000,dist="normal",scale=0.25)$data
@@ -27,6 +28,7 @@
 #' 
 #' # Either way, we all effects by doing
 #' print(plot(b, allTerms = TRUE), pages = 1)
+#' }
 #'
 #' @rdname qgamV
 #' @export qgamV

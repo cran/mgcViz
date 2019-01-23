@@ -30,11 +30,12 @@
 #' # Either way, we plot first and third effects by doing
 #' print(plot(b, select = c(1, 3)), pages = 1)
 #' 
+#' \dontrun{
 #' ##### bam example
 #' # Simulate data
 #' library(mgcViz)
 #' set.seed(2) ## simulate some data...
-#' dat <- gamSim(1,n=10000,dist="normal",scale=2)
+#' dat <- gamSim(1,n=2000,dist="normal",scale=2)
 #' 
 #' # Fit using bam() and get gamViz object
 #' b <- bamV(y~s(x0)+s(x1, x2)+s(x3), data = dat, 
@@ -42,6 +43,7 @@
 #'           
 #' # Either way, we plot first and third effects by doing
 #' print(plot(b, select = c(2)), pages = 1)
+#' }
 #' @importFrom stats gaussian
 #' @rdname gamV
 #' @export gamV

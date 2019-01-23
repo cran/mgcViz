@@ -45,6 +45,7 @@
 #' plot(sm(b, 2)) + l_fitRaster(pTrans = zto1(0.05, 2, 0.1), noiseup = TRUE) + 
 #'   l_rug() + l_fitContour()  
 #' 
+#' \dontrun{
 #' # Plot contour of effect joint density of design points
 #' plot(sm(b, 2)) + l_dens(type = "joint") + l_points() + l_fitContour() + 
 #'   coord_cartesian(expand = FALSE) # Fill the plot
@@ -55,7 +56,7 @@
 #' b <- mqgamV(y ~ s(x0) + s(x1, x2) + s(x3), qu = c(0.3, 0.7), data = dat)
 #' 
 #' plot(sm(b, 2)) + l_fitRaster(noiseup = TRUE) + l_fitContour(colour = 2)
-#' 
+#' }
 #' @importFrom mgcv exclude.too.far
 #' @rdname plot.mgcv.smooth.2D
 #' @export plot.mgcv.smooth.2D
@@ -102,8 +103,8 @@ plot.mgcv.smooth.2D <- function(x, n = 40, xlim = NULL, ylim = NULL, maxpo = 1e4
     }
     
     # Exclude residuals falling outside boundaries
-    .dat$res <- filter(P$raw, x >= P$xlim[1] & x <= P$xlim[2] & 
-                              y >= P$ylim[1] & y <= P$ylim[2] )
+    .dat$res <- P$raw[P$raw$x >= P$xlim[1] & P$raw$x <= P$xlim[2] & 
+                      P$raw$y >= P$ylim[1] & P$raw$y <= P$ylim[2] , , drop = FALSE]
   
     # Sample if too many points (> maxpo) 
     nres <- nrow( .dat$res )

@@ -2,27 +2,38 @@
 % Please edit documentation in R/check1D.R
 \name{check1D}
 \alias{check1D}
-\title{Checking GAM residuals along one covariate}
+\title{Checking GAM residuals or responses along one covariate}
 \usage{
-check1D(o, x, type = "auto", maxpo = 10000, na.rm = TRUE)
+check1D(o, x, type = "auto", maxpo = 10000, na.rm = TRUE, trans = NULL,
+  useSim = TRUE)
 }
 \arguments{
 \item{o}{an object of class \code{gamViz}.}
 
-\item{x}{should be either a single character or a numeric vector.
-In the first case it should be the name of one of the variables in the dataframe used to fit \code{o}.
-In the second case the length of \code{x} should be equal to the length of \code{residuals(o)}.}
+\item{x}{it can be either a) a single character, b) a numeric vector or c) a list of characters.
+In case a) it should be the name of one of the variables in the dataframe used to fit \code{o}.
+In case b) its length should be equal to the length of \code{o$y}.
+In case c) it should be a list of names variables in the dataframe used to fit \code{o}.}
 
-\item{type}{the type of residuals to be used. See \link{residuals.gamViz}.}
+\item{type}{the type of residuals to be used. See \link{residuals.gamViz}.
+If \code{"type == y"} then the raw observations will be used.}
 
 \item{maxpo}{maximum number of residuals points that will be used by layers such as
-\code{resRug()} and \code{resPoints()}. If number of datapoints > \code{maxpo},
+\code{l_rug()}. If number of datapoints > \code{maxpo},
 then a subsample of \code{maxpo} points will be taken.}
 
 \item{na.rm}{if \code{TRUE} missing cases in \code{x} or \code{y} will be dropped out.}
+
+\item{trans}{function used to transform the observed and simulated residuals or responses. It must take a vector of
+as input, and must return a vector of the same length.}
+
+\item{useSim}{if \code{FALSE} then the simulated responses contained in object \code{o} will not be used
+by this function or by any of the layers that can be used with its output.}
 }
 \value{
-An object of class \code{c("plotSmooth", "gg")}.
+The function will return an object of class \code{c("plotSmooth", "gg")}, unless argument \code{x} is a
+list. In that case the function will return an object of class \code{c("plotGam", "gg")} containing
+a checking plot for each variable.
 }
 \description{
 This function extracts the residuals of a fitted GAM model, and orders
@@ -42,18 +53,19 @@ b <- bam(ob ~ s(x,k=30) + s(y, k=30), discrete = TRUE)
 b <- getViz(b)
 
 # Look at residuals along "x"
-ck <- check1D(b, "x")
+ck <- check1D(b, "x", type = "tnormal")
 
 # Can't see that much
 ck + l_dens(type = "cond", alpha = 0.8) + l_points() + l_rug(alpha = 0.2)
 
+\dontrun{
 # Some evidence of heteroscedasticity
 ck + l_densCheck()
 
 # Compare observed residuals std dev with that of simulated data,
 # heteroscedasticity is clearly visible
 b <- getViz(b, nsim = 50)
-check1D(b, "x") + l_gridCheck1D(gridFun = sd, show.reps = TRUE)
+check1D(b, "x") + l_gridCheck1D(gridFun = sd, showReps = TRUE)
 
 # This also works with factor or logical data
 fac <- sample(letters, n, replace = TRUE)
@@ -70,5 +82,6 @@ ck + l_gridCheck1D(gridFun = sd)
 ck <- check1D(b, "logi") 
 ck + l_points() + l_rug() 
 ck + l_gridCheck1D(gridFun = sd)
+}
 
 }

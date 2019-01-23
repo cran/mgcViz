@@ -1,6 +1,8 @@
 ## ----setup, include=FALSE------------------------------------------------
 library(knitr)
+library(rgl)
 opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center", tidy=FALSE)
+knit_hooks$set(webgl = hook_webgl)
 
 ## ----1, message = F------------------------------------------------------
 library(mgcViz)
@@ -28,12 +30,7 @@ b <- getViz(b)
 ## ----7-------------------------------------------------------------------
 plot(sm(b, 1)) + l_fitRaster() + l_fitContour() + l_points()
 
-## ----8, eval = FALSE-----------------------------------------------------
-#  # Cannot run this when building the pdf for this vignette, but do try it!
-#  library(plotly)
-#  ggplotly( plot(sm(b, 1)) + l_fitRaster() + l_points() + l_fitContour()  )
-
-## ----8a, message = F, warning = F----------------------------------------
+## ----8a, message = F, warning = F, fig.width=10, fig.height=4------------
 gridPrint(plot(sm(b, 1)) + l_fitRaster() + l_fitContour() + labs(title = NULL) + guides(fill=FALSE),
           plot(pterm(b, 1)) + l_ciPoly() + l_fitLine(), ncol = 2)
 
@@ -68,7 +65,7 @@ plot(b, select = 1) + l_dens(type = "cond") + l_fitLine() + l_ciLine()
 ## ----15a-----------------------------------------------------------------
 plot(b, allTerms = TRUE, select = 4) + geom_hline(yintercept = 0)
 
-## ----16, warning = F-----------------------------------------------------
+## ----16, warning = F, webgl=TRUE-----------------------------------------
 library(mgcViz)
 n <- 500
 x <- rnorm(n); y <- rnorm(n); z <- rnorm(n)
@@ -76,14 +73,10 @@ ob <- (x-z)^2 + (y-z)^2 + rnorm(n)
 b <- gam(ob ~ s(x, y, z))
 b <- getViz(b)
 
-# This will not appear in the .pdf or .html document, but do try it!
 plotRGL(sm(b, 1), fix = c("z" = 0), residuals = TRUE)
 
 ## ----17------------------------------------------------------------------
 aspect3d(1, 2, 1)
-
-## ----18------------------------------------------------------------------
-rgl.close()
 
 ## ----19, results='hide'--------------------------------------------------
 set.seed(0)
@@ -102,7 +95,7 @@ lr.fit <- getViz(lr.fit)
 qq(lr.fit, method = "simul1", a.qqpoi = list("shape" = 1), a.ablin = list("linetype" = 2))
 
 ## ----21------------------------------------------------------------------
-qq(lr.fit, rep = 20, show.reps = T, CI = "none", a.qqpoi = list("shape" = 19), a.replin = list("alpha" = 0.2))
+qq(lr.fit, rep = 20, showReps = T, CI = "none", a.qqpoi = list("shape" = 19), a.replin = list("alpha" = 0.2))
 
 ## ----22, results='hide'--------------------------------------------------
 set.seed(0)
@@ -118,12 +111,12 @@ lr.fit <- bam(y/n ~ s(x0) + s(x1) + s(x2) + s(x3)
 lr.fit <- getViz(lr.fit)
 
 ## ----23------------------------------------------------------------------
-o <- qq(lr.fit, rep = 10, method = "simul1", CI = "normal", show.reps = TRUE, 
+o <- qq(lr.fit, rep = 10, method = "simul1", CI = "normal", showReps = TRUE, 
         a.replin = list(alpha = 0.1), discrete = TRUE)
 o 
 
 ## ----24------------------------------------------------------------------
-o <- qq(lr.fit, rep = 10, method = "simul1", CI = "normal", show.reps = TRUE,
+o <- qq(lr.fit, rep = 10, method = "simul1", CI = "normal", showReps = TRUE,
         ngr = 1e2, a.replin = list(alpha = 0.1), a.qqpoi = list(shape = 19))
 o 
 
@@ -156,22 +149,22 @@ ob <- (x)^2 + (y)^2 + (0.2*abs(x) + 1)  * rnorm(n)
 b <- bam(ob ~ s(x,k=30) + s(y, k=30) + z, discrete = TRUE)
 b <- getViz(b)
 
-## ----27------------------------------------------------------------------
+## ----27, fig.width=6, fig.height=3---------------------------------------
 ck1 <- check1D(b, "x")
 ck2 <- check1D(b, "z")
 gridPrint(ck1, ck2, ncol = 2)
 
-## ----28------------------------------------------------------------------
+## ----28, fig.width=10, fig.height=4--------------------------------------
 gridPrint(ck1 + l_dens(type = "cond", alpha = 0.8) + l_rug(alpha = 0.2), 
-          ck2 + l_points() + l_rug(alpha = 0.2), layout_matrix = matrix(c(1, 1, 2), 1, 3))
+          ck2 + l_points() + l_rug(alpha = 0.2), layout_matrix = matrix(c(1, 1, 1, 2, 2), 1, 5))
 
 ## ----29------------------------------------------------------------------
 ck1 + l_densCheck()
 
-## ----30------------------------------------------------------------------
+## ----30, fig.width=10, fig.height=4--------------------------------------
 b <- getViz(b, nsim = 50)
-gridPrint(check1D(b, "x") + l_gridCheck1D(gridFun = sd, show.reps = TRUE), 
-          check1D(b, "z") + l_gridCheck1D(gridFun = sd, show.reps = TRUE), ncol = 2)
+gridPrint(check1D(b, "x") + l_gridCheck1D(gridFun = sd, showReps = TRUE), 
+          check1D(b, "z") + l_gridCheck1D(gridFun = sd, showReps = TRUE), ncol = 2)
 
 ## ----31------------------------------------------------------------------
 set.seed(566)
@@ -184,7 +177,7 @@ b <- getViz(b, nsim = 50)
 
 ## ----32------------------------------------------------------------------
 ck1 <- check2D(b, x1 = "x1", x2 = "x2")
-ck2 <- check2D(b, x1 = "x2", x2 = X$fac) + labs(x = "fac")
+ck2 <- check2D(b, x1 = X$fac, x2 = "x2") + labs(x = "fac")
 
 ## ----33------------------------------------------------------------------
 ck1 + l_gridCheck2D(gridFun = mean)

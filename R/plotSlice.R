@@ -16,6 +16,7 @@
 #' @return An objects of class \code{plotSmooth}.
 #' @name plotSlice
 #' @examples 
+#' \dontrun{
 #' ### Example 1: plotting slices of 3D smooth
 #' # Simulate data and fit GAM
 #' library(mgcViz)
@@ -38,7 +39,6 @@
 #' 
 #' ### Example 2: plotting slices of 4D smooth
 #' # Simulate data and fit GAM
-#' \dontrun{
 #' n <- 5e3
 #' x <- rnorm(n); y <- rnorm(n); z <- rnorm(n); z2 <- rnorm(n)
 #' ob <- (x-z)^2 + (y-z)^2 + z2^3 + rnorm(n)

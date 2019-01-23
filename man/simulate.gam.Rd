@@ -5,7 +5,7 @@
 \title{Simulating responses from a GAM object}
 \usage{
 \method{simulate}{gam}(object, nsim = 1, seed = NULL, method = "auto",
-  u = NULL, ...)
+  newdata, u = NULL, w = NULL, offset = NULL, trans = NULL, ...)
 }
 \arguments{
 \item{object}{the output of a \code{gam()} or \code{bam()} call.}
@@ -19,8 +19,23 @@ will be used, if available. If set to "qf" then \code{o$family$qf()} (which is
 the inverse cdf of the response distribution) will be used to transform some
 uniform variates.}
 
+\item{newdata}{Optional new data frame or list to be passed to \link{predict.gam}.}
+
 \item{u}{a matrix where each row is a vector of uniform random variables in (0, 1).
 This will be used to simulate responses only if \code{method = "qf"}.}
+
+\item{w}{vector of prior weights to be used in the simulations. If \code{newdata==NULL} then
+\code{w} is set to \code{object$prior.weights} otherwise it is a vector of ones.}
+
+\item{offset}{numeric vector of offsets. For GAMs with multiple linear predictor (see eg \link{gaulss}) it
+must be a list of vectors. NB: if \code{newdata!=NULL} the offsets will be assumed to be zero,
+unless their are explicitly provided. If \code{newdata==NULL} then simulations will use the
+offsets used during model fitting, and \code{offset} argument will be ignored.}
+
+\item{trans}{function used to transform or summarize each vector of simulated responses.
+It must take a vector as argument, but it can output a vector or a scalar.
+Potentially useful for saving storage (e.g. by transforming each simulated vector
+to a scalar). If left to \code{NULL} then \code{trans = identity} will be used.}
 
 \item{...}{currently not used.}
 }

@@ -4,7 +4,7 @@
 \alias{l_gridQCheck1D}
 \title{Checking sign of residuals along one covariate}
 \usage{
-l_gridQCheck1D(qu, n = 20, level = 0.8, ...)
+l_gridQCheck1D(qu = NULL, n = 20, level = 0.8, ...)
 }
 \arguments{
 \item{qu}{the quantile of interest. Should be in (0, 1).}
@@ -32,8 +32,7 @@ library(mgcViz)
 set.seed(3841)
 dat <- gamSim(1,n=400,dist="normal",scale=2)
 dat$fac <- as.factor( sample(letters[1:8], nrow(dat), replace = TRUE) ) 
-fit <- qgam(y~s(x1)+s(x2)+s(x3)+fac, data=dat, err = 0.05, qu = 0.4)
-fit <- getViz(fit)
+fit <- qgamV(y~s(x1)+s(x2)+s(x3)+fac, data=dat, err = 0.05, qu = 0.4)
 
 # "x0" effect is missing, but should be there. l_gridQCheck1D shows
 # that fraction of negative residuals is quite different from the theoretical 0.4
@@ -41,6 +40,8 @@ fit <- getViz(fit)
 check1D(fit, dat$x0) + l_gridQCheck1D(qu = 0.4, n = 20)
 # The problem gets better if s(x0) is added to the model.
 
+\dontrun{
 # Works also with factor variables
 check1D(fit, "fac") + l_gridQCheck1D(qu = 0.4)
+}
 }

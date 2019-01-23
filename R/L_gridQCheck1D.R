@@ -19,8 +19,7 @@
 #' set.seed(3841)
 #' dat <- gamSim(1,n=400,dist="normal",scale=2)
 #' dat$fac <- as.factor( sample(letters[1:8], nrow(dat), replace = TRUE) ) 
-#' fit <- qgam(y~s(x1)+s(x2)+s(x3)+fac, data=dat, err = 0.05, qu = 0.4)
-#' fit <- getViz(fit)
+#' fit <- qgamV(y~s(x1)+s(x2)+s(x3)+fac, data=dat, err = 0.05, qu = 0.4)
 #' 
 #' # "x0" effect is missing, but should be there. l_gridQCheck1D shows
 #' # that fraction of negative residuals is quite different from the theoretical 0.4
@@ -28,14 +27,16 @@
 #' check1D(fit, dat$x0) + l_gridQCheck1D(qu = 0.4, n = 20)
 #' # The problem gets better if s(x0) is added to the model.
 #' 
+#' \dontrun{
 #' # Works also with factor variables
 #' check1D(fit, "fac") + l_gridQCheck1D(qu = 0.4)
+#' }
 #' @importFrom matrixStats colSds
 #' @importFrom plyr aaply
 #' @importFrom stats qbinom
 #' @rdname l_gridQCheck1D
 #' @export l_gridQCheck1D
-l_gridQCheck1D <- function(qu, n = 20, level = 0.8, ...){
+l_gridQCheck1D <- function(qu = NULL, n = 20, level = 0.8, ...){
   arg <- list(...)
   arg$xtra <- list("qu" = qu, "n" = n, "level" = level, "stand" = "none")
   o <- structure(list("fun" = "l_gridQCheck1D",
@@ -69,6 +70,12 @@ l_gridQCheck1D.Check1DFactor <- l_gridQCheck1D.Check1DLogical <- function(a){
 #' @noRd
 .l_gridQCheck1D <- function(a){
   
+  if(a$data$misc$resType == "y"){ message("Using l_gridQCheck1D might not make sense with residual type == \"y\". See ?check1D")}
+  if( is.null(a$xtra$qu) ){ 
+    if( is.null(a$data$misc$qu) ){ stop("Please specify argument qu in the call to l_gridQCheck1D") }
+    a$xtra$qu <- a$data$misc$qu 
+  }
+    
   funCreator <- function(.qu, .lev, .type){
     .ciFun <- function(.x){
       .n <- length(.x)
@@ -79,6 +86,7 @@ l_gridQCheck1D.Check1DFactor <- l_gridQCheck1D.Check1DLogical <- function(a){
   }
   
   xtra <- a$xtra
+  a$xtra$showObs <- TRUE
   a$xtra$level <- 0
   a$data$sim <- NULL
   

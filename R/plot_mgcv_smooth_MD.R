@@ -62,8 +62,7 @@
 #' }
 #'
 #' @rdname plot.mgcv.smooth.MD
-#' @importFrom mvnfast maha
-#' @importFrom stats cov quantile
+#' @importFrom stats cov quantile mahalanobis
 #' @export plot.mgcv.smooth.MD
 #' @export
 #' 

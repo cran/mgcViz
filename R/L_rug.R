@@ -41,15 +41,32 @@ l_rug.Check1DLogical <- function(a){
   
 }
 
+######## Internal method for Check0D: scalar case
+#' @noRd
+l_rug.Check0DScalarNumeric <- function(a){
+  
+  if( is.null(a$data$sim) ){
+    message("l_rug: gamViz object does not contain any simulation, so there is nothing to plot")
+    return(NULL)
+  }
+  
+  a$data$res <- data.frame("x" = drop(a$data$sim), "sub" = rep(TRUE, nrow(a$data$res)))
+
+  l_rug.1D( a )
+  
+}
+
 ######## Internal method for numeric 1D plots
 #' @noRd
-l_rug.1D <- l_rug.Multi1D <- l_rug.Check1DNumeric <- l_rug.PtermNumeric <- function(a){
+l_rug.1D <- l_rug.Multi1D <- l_rug.Check1DNumeric <- 
+  l_rug.PtermNumeric <- l_rug.Check0DVectorNumeric <- function(a){
   
   if( is.null(a$mapping) ) { a$mapping <- aes(x = x) }
   
   .l_rug( a )
   
 }
+
 
 ######## Internal method for factor/numeric 2D plots
 #' @noRd
@@ -94,17 +111,25 @@ l_rug.2D <- l_rug.sos0 <- l_rug.sos1 <- l_rug.Check2DNumericNumeric <- l_rug.MDs
   
   if( is.null(a$mapping$y) && ("PositionJitter" %in% class(a$position)) ){
     a$mapping <-  aes(x = x, y = y)
+    a$data$y <- NaN
     a$sides <- "b"
   }
   if( is.null(a$mapping$x) && ("PositionJitter" %in% class(a$position)) ){
     a$mapping <-  aes(x = x, y = y)
+    a$data$x <- NaN
     a$sides <- "l"
   }
   if( is.null(a$data$y) ){
     a$data$y <- NaN
   }
-
+  
   fun <- "geom_rug"
   out <- do.call(fun, a)
   return( out )
 }
+
+
+
+
+
+

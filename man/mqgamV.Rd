@@ -23,6 +23,7 @@ converts it to a \code{mgamViz} object using the \link{getViz} function.
 It is essentially a shortcut.
 }
 \examples{
+\dontrun{
 library(mgcViz)
 set.seed(2) ## simulate some data...
 dat <- gamSim(2,n=500,dist="normal",scale=0.25)$data
@@ -40,5 +41,5 @@ b <- mqgamV(y~s(x) + s(z) + I(x*z), data = dat, qu = c(0.25, 0.5, 0.75),
 
 # Either way, we all effects by doing
 print(plot(b, allTerms = TRUE), pages = 1)
-
+}
 }

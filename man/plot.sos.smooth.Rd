@@ -58,6 +58,7 @@ An objects of class \code{plotSmooth}.
 This is the plotting method for smooth effects on the sphere.
 }
 \examples{
+\dontrun{
 library(mgcViz)
 set.seed(0)
 n <- 400
@@ -87,8 +88,7 @@ require(mgcv)
 dat <- data.frame(la = la *180/pi,lo = lo *180/pi,y=y)
 
 ## fit spline on sphere model...
-bp <- gam(y~s(la,lo,bs="sos",k=60),data=dat)
-bp <- getViz(bp)
+bp <- gamV(y~s(la,lo,bs="sos",k=60),data=dat)
 
 # Plot on sphere
 plot(sm(bp, 1), scheme=0) + l_fitRaster() + l_fitContour() + 
@@ -97,6 +97,7 @@ plot(sm(bp, 1), scheme=0) + l_fitRaster() + l_fitContour() +
 # Plotting as in standard 2D plots
 plot(sm(bp, 1), scheme=1) + l_fitRaster() + l_fitContour() + 
            l_points(shape = 19) + l_rug()
+}
 }
 \references{
 Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for

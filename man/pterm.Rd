@@ -35,6 +35,7 @@ o <- getViz(b)
 pt <- pterm(o, 1)
 plot(pt, n = 60) + l_ciPoly() + l_fitLine() + l_ciLine() + l_points()
 
+\dontrun{
 # Plot effect of 'x3'
 pt <- pterm(o, 1)
 plot(pt, n = 60) + l_fitLine() + l_ciLine(colour = 2)
@@ -84,5 +85,5 @@ plot(pt) + l_ciPoly() + l_fitLine() + l_ciLine(linetype = 3) + l_rug()
 pt <- pterm(o, 4)
 plot(pt) + l_ciBar(colour = "blue") + l_fitPoints(colour = "red") + 
            l_rug() 
-
+}
 }

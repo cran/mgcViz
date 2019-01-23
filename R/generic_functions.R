@@ -21,6 +21,7 @@ zoom <- function(o, ...) UseMethod("zoom")
 #' @export shine
 shine <- function(o, ...) UseMethod("shine")
 
+
 #'
 #' Generic RGL plotting function
 #'

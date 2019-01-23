@@ -34,6 +34,7 @@
 #' @references Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for 
 #'             Generalized Additive Model Components. Scandinavian Journal of Statistics.
 #' @examples 
+#' \dontrun{
 #' library(mgcViz)
 #' set.seed(0)
 #' n <- 400
@@ -63,8 +64,7 @@
 #' dat <- data.frame(la = la *180/pi,lo = lo *180/pi,y=y)
 #' 
 #' ## fit spline on sphere model...
-#' bp <- gam(y~s(la,lo,bs="sos",k=60),data=dat)
-#' bp <- getViz(bp)
+#' bp <- gamV(y~s(la,lo,bs="sos",k=60),data=dat)
 #' 
 #' # Plot on sphere
 #' plot(sm(bp, 1), scheme=0) + l_fitRaster() + l_fitContour() + 
@@ -73,6 +73,7 @@
 #' # Plotting as in standard 2D plots
 #' plot(sm(bp, 1), scheme=1) + l_fitRaster() + l_fitContour() + 
 #'            l_points(shape = 19) + l_rug()
+#' }
 #' @rdname plot.sos.smooth
 #' @export plot.sos.smooth
 #' @export 
