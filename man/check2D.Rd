@@ -45,6 +45,7 @@ according to the values of two covariates. Then several visual residuals diagnos
 can be plotted by adding layers.
 }
 \examples{
+\dontrun{
 library(mgcViz);
 #### Example 1: Rosenbrock function
 # Simulate data
@@ -57,7 +58,6 @@ b <- getViz(b, nsim = 50)
 # Plot joint density of observed covariate x1 and x2
 check2D(b, x1 = "x1", x2 = "x2") + l_rug() + l_dens(type="joint", alpha=0.6) + l_points()
 
-\dontrun{
 # Look at how mean of residuals varies across x1 and x2
 check2D(b, x1 = "x1", x2 = "x2") + l_gridCheck2D() + l_points()
 
@@ -87,7 +87,7 @@ a + l_rug(position = position_jitter(width = 0, height = 0)) +
 
 # Check standard deviation of residuals along the two factor variables
 a <- check2D(b, x1 = "fac", x2 = "fac2")
-a + l_gridCheck2D(gridFun = sd, bw = c(1, 4)) + l_rug() + l_points()
-} 
+a + l_gridCheck2D(gridFun = sd, bw = c(1, 4)) + l_rug() + l_points() 
+}
 
 }

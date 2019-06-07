@@ -7,12 +7,12 @@
 \title{Plotting two dimensional smooth effects}
 \usage{
 \method{plot}{mgcv.smooth.2D}(x, n = 40, xlim = NULL, ylim = NULL,
-  maxpo = 10000, too.far = 0.1, trans = identity, seWithMean = FALSE,
-  unconditional = FALSE, ...)
+  maxpo = 10000, too.far = 0.1, trans = identity,
+  seWithMean = FALSE, unconditional = FALSE, ...)
 
-\method{plot}{multi.mgcv.smooth.2D}(x, n = 30, xlim = NULL, ylim = NULL,
-  maxpo = 10000, too.far = 0.1, trans = identity, seWithMean = FALSE,
-  unconditional = FALSE, a.facet = list(), ...)
+\method{plot}{multi.mgcv.smooth.2D}(x, n = 30, xlim = NULL,
+  ylim = NULL, maxpo = 10000, too.far = 0.1, trans = identity,
+  seWithMean = FALSE, unconditional = FALSE, a.facet = list(), ...)
 }
 \arguments{
 \item{x}{a smooth effect object, extracted using \link[mgcViz:sm]{mgcViz::sm}.}
@@ -70,11 +70,11 @@ b <- getViz(b)
 plot(sm(b, 2)) + l_fitRaster(pTrans = zto1(0.05, 2, 0.1), noiseup = TRUE) + 
   l_rug() + l_fitContour()  
 
-\dontrun{
 # Plot contour of effect joint density of design points
 plot(sm(b, 2)) + l_dens(type = "joint") + l_points() + l_fitContour() + 
   coord_cartesian(expand = FALSE) # Fill the plot
   
+\dontrun{
 ###
 # Quantile GAM example
 ###
@@ -82,6 +82,7 @@ b <- mqgamV(y ~ s(x0) + s(x1, x2) + s(x3), qu = c(0.3, 0.7), data = dat)
 
 plot(sm(b, 2)) + l_fitRaster(noiseup = TRUE) + l_fitContour(colour = 2)
 }
+
 }
 \references{
 Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for

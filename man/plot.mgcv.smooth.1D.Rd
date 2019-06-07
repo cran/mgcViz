@@ -7,12 +7,12 @@
 \title{Plotting one dimensional smooth effects}
 \usage{
 \method{plot}{mgcv.smooth.1D}(x, n = 100, xlim = NULL, maxpo = 10000,
-  trans = identity, unconditional = FALSE, seWithMean = FALSE, nsim = 0,
-  ...)
+  trans = identity, unconditional = FALSE, seWithMean = FALSE,
+  nsim = 0, ...)
 
 \method{plot}{multi.mgcv.smooth.1D}(x, n = 100, xlim = NULL,
   maxpo = 10000, trans = identity, unconditional = FALSE,
-  seWithMean = FALSE, ...)
+  seWithMean = FALSE, asFact = NULL, ...)
 }
 \arguments{
 \item{x}{a smooth effect object, extracted using \link[mgcViz:sm]{mgcViz::sm}.}
@@ -44,6 +44,11 @@ by simulation.}
 These can be plotted using the \link{l_simLine} layer. See Examples section below.}
 
 \item{...}{currently unused.}
+
+\item{asFact}{determines whether to use a factor or colour bar legend for plot.multi.mgcv.smooth.1D.
+When working with models fitted with \link{mqgamV}, the default is
+\code{FALSE} for less than 10 quantiles, \code{TRUE} otherwise. For other models the
+default is \code{TRUE}.}
 }
 \value{
 An objects of class \code{plotSmooth}.
@@ -66,7 +71,6 @@ o <- plot(sm(b, 1), nsim = 50) # 50 posterior simulations
 ( o <- o + l_simLine() + l_fitLine(colour = "red") + 
        l_rug(alpha = 0.8) )
 
-\dontrun{
 # Add CI lines at 1*sigma and 5*sigma
 ( o <- o + l_ciLine(mul = 1) + l_ciLine(mul = 5, colour = "blue", linetype = 2) )
 
@@ -84,6 +88,7 @@ o2 + l_ciPoly(mul = 5, fill = "light blue") +
 o2 + l_dens(type = "cond", alpha = 0.9)  + 
   l_fitLine(linetype = 2, colour = "red")
   
+\dontrun{
 ########
 # Quantile GAM example
 ########
@@ -92,6 +97,7 @@ b <- mqgamV(y ~ s(x1) + s(x2), qu = c(0.2, 0.5, 0.8), data = dat)
 
 plot(sm(b, 1)) + l_fitLine(linetype = 2) + l_rug(colour = "blue")
 }
+
 }
 \references{
 Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for

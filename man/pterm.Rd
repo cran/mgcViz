@@ -35,7 +35,6 @@ o <- getViz(b)
 pt <- pterm(o, 1)
 plot(pt, n = 60) + l_ciPoly() + l_fitLine() + l_ciLine() + l_points()
 
-\dontrun{
 # Plot effect of 'x3'
 pt <- pterm(o, 1)
 plot(pt, n = 60) + l_fitLine() + l_ciLine(colour = 2)
@@ -53,6 +52,7 @@ plot(pt) + l_fitBar(a.aes = list(fill = I("light blue"))) + l_ciBar(colour = "bl
 pt <- pterm(o, 7)
 plot(pt)
 
+\dontrun{
 ####### 1. Continued: Quantile GAMs
 b <- mqgamV(y ~ x0 + x1 + I(x1^2) + s(x2,bs=bs,k=k) + x3:fac + 
               I(x1*x2) + logi, data=dat, qu = c(0.3, 0.5, 0.8))
@@ -86,4 +86,5 @@ pt <- pterm(o, 4)
 plot(pt) + l_ciBar(colour = "blue") + l_fitPoints(colour = "red") + 
            l_rug() 
 }
+
 }

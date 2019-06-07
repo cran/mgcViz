@@ -27,6 +27,7 @@
 #'         and \code{x2} is not specified, the function will return an object of class \code{c("plotGam", "gg")} containing
 #'         a plot for each unique combination of the variables in \code{x1}.
 #' @examples 
+#' \dontrun{
 #' library(mgcViz);
 #' #### Example 1: Rosenbrock function
 #' # Simulate data
@@ -39,7 +40,6 @@
 #' # Plot joint density of observed covariate x1 and x2
 #' check2D(b, x1 = "x1", x2 = "x2") + l_rug() + l_dens(type="joint", alpha=0.6) + l_points()
 #' 
-#' \dontrun{
 #' # Look at how mean of residuals varies across x1 and x2
 #' check2D(b, x1 = "x1", x2 = "x2") + l_gridCheck2D() + l_points()
 #' 
@@ -69,8 +69,8 @@
 #' 
 #' # Check standard deviation of residuals along the two factor variables
 #' a <- check2D(b, x1 = "fac", x2 = "fac2")
-#' a + l_gridCheck2D(gridFun = sd, bw = c(1, 4)) + l_rug() + l_points()
-#' } 
+#' a + l_gridCheck2D(gridFun = sd, bw = c(1, 4)) + l_rug() + l_points() 
+#' }
 #' 
 #' @importFrom utils combn
 #' @rdname check2D

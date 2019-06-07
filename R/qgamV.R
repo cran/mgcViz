@@ -33,7 +33,11 @@
 #' @rdname qgamV
 #' @export qgamV
 #
-qgamV <- function(form, data, qu, lsig = NULL, err = 0.05,  aQgam = list(), aViz = list()){
+qgamV <- function(form, data, qu, lsig = NULL, err = NULL, aQgam = list(), aViz = list()){
+  
+  if( is.null(err) && packageVersion("qgam") < "1.3.0" ) {  
+   err <- 0.05
+  }
   
   obj <- do.call("qgam", c(list("form" = form, "qu" = qu, 
                                "data" = data, "lsig" = lsig, "err" = err), aQgam))

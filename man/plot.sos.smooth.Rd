@@ -88,7 +88,8 @@ require(mgcv)
 dat <- data.frame(la = la *180/pi,lo = lo *180/pi,y=y)
 
 ## fit spline on sphere model...
-bp <- gamV(y~s(la,lo,bs="sos",k=60),data=dat)
+bp <- gam(y~s(la,lo,bs="sos",k=60),data=dat)
+bp <- getViz(bp)
 
 # Plot on sphere
 plot(sm(bp, 1), scheme=0) + l_fitRaster() + l_fitContour() + 

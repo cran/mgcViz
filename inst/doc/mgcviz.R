@@ -99,7 +99,7 @@ qq(lr.fit, rep = 20, showReps = T, CI = "none", a.qqpoi = list("shape" = 19), a.
 
 ## ----22, results='hide'--------------------------------------------------
 set.seed(0)
-n.samp <- 50000
+n.samp <- 20000
 dat <- gamSim(1,n=n.samp,dist="binary",scale=.33)
 p <- binomial()$linkinv(dat$f) ## binomial p
 n <- sample(c(1,3),n.samp,replace=TRUE) ## binomial n
@@ -141,12 +141,12 @@ check(b,
 
 ## ----26------------------------------------------------------------------
 set.seed(4124)
-n <- 1e4
+n <- 5e3
 x <- rnorm(n); y <- rnorm(n);
 z <- as.factor( sample(letters[1:6], n, replace = TRUE) )
 
 ob <- (x)^2 + (y)^2 + (0.2*abs(x) + 1)  * rnorm(n)
-b <- bam(ob ~ s(x,k=30) + s(y, k=30) + z, discrete = TRUE)
+b <- gam(ob ~ s(x) + s(y) + z)
 b <- getViz(b)
 
 ## ----27, fig.width=6, fig.height=3---------------------------------------
@@ -168,11 +168,11 @@ gridPrint(check1D(b, "x") + l_gridCheck1D(gridFun = sd, showReps = TRUE),
 
 ## ----31------------------------------------------------------------------
 set.seed(566)
-n <- 1e4
+n <- 5e3
 X <- data.frame("x1"=rnorm(n, 0.5, 0.5), "x2"=rnorm(n, 1.5, 1), 
                 "fac"=as.factor( sample(letters[1:6], n, replace = TRUE) ))
 X$y <- (1-X$x1)^2 + 100*(X$x2 - X$x1^2)^2 + rnorm(n, 0, 2)
-b <- bam(y ~ te(x1, x2, k = 5), data = X, discrete = TRUE)
+b <- gam(y ~ te(x1, x2, k = 5), data = X)
 b <- getViz(b, nsim = 50)
 
 ## ----32------------------------------------------------------------------
@@ -191,10 +191,10 @@ listLayers( ck1 )
 
 ## ----36------------------------------------------------------------------
 set.seed(4124)
-n <- 1e4
+n <- 5e3
 dat <- data.frame("x1" = rnorm(n), "x2" = rnorm(n))
 dat$y <- (dat$x1)^2 + (dat$x2)^2 + (1*abs(dat$x1) + 1)  * rnorm(n)
-b <- bam(y ~ s(x1,k=30) + s(x2, k=30), data = dat, discrete = TRUE)
+b <- gam(y ~ s(x1) + s(x2), data = dat)
 b <- getViz(b)
 
 ck <- check2D(b, x1 = "x1", x2 = "x2", type = "tnormal")
@@ -227,7 +227,7 @@ ck + l_glyphs2D(glyFun = glyFun, ggLay = "geom_point", n = c(10, 10),
 
 ## ----39, results='hide'--------------------------------------------------
 set.seed(6898)
-dat <- gamSim(1,n=1500,dist="normal",scale=20)
+dat <- gamSim(1,n=500,dist="normal",scale=20)
 dat$fac <- as.factor( sample(c("A1", "A2", "A3"), nrow(dat), replace = TRUE) ) 
 bs <- "cr"; k <- 12
 b <- gam(y ~ s(x2,bs=bs,by = fac), data=dat)
@@ -238,10 +238,10 @@ plotDiff(s1 = sm(b, 1), s2 = sm(b, 2)) + l_ciPoly() +
          l_fitLine() + geom_hline(yintercept = 0, linetype = 2)
 
 ## ----40------------------------------------------------------------------
-n <- 5e3
+n <- 1e3
 x <- rnorm(n); y <- rnorm(n); z <- rnorm(n); z2 <- rnorm(n)
 ob <- (x-z)^2 + (y-z)^2 + z2^3 + rnorm(n)
-b <- bam(ob ~ s(x, y, z, z2), discrete = TRUE)
+b <- gam(ob ~ s(x, y, z, z2))
 v <- getViz(b)
 
 # Plot slices across "z" and "x"

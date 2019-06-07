@@ -22,7 +22,11 @@
 #'                   that TRUE results in better coverage performance, and this is also suggested 
 #'                   by simulation.
 #' @param nsim number of smooth effect curves to be simulated from the posterior distribution. 
-#'             These can be plotted using the \link{l_simLine} layer. See Examples section below.  
+#'             These can be plotted using the \link{l_simLine} layer. See Examples section below. 
+#' @param asFact determines whether to use a factor or colour bar legend for plot.multi.mgcv.smooth.1D. 
+#'               When working with models fitted with \link{mqgamV}, the default is 
+#'               \code{FALSE} for less than 10 quantiles, \code{TRUE} otherwise. For other models the 
+#'               default is \code{TRUE}. 
 #' @param ... currently unused.
 #' @return An objects of class \code{plotSmooth}.
 #' @references Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for 
@@ -42,7 +46,6 @@
 #' ( o <- o + l_simLine() + l_fitLine(colour = "red") + 
 #'        l_rug(alpha = 0.8) )
 #' 
-#' \dontrun{
 #' # Add CI lines at 1*sigma and 5*sigma
 #' ( o <- o + l_ciLine(mul = 1) + l_ciLine(mul = 5, colour = "blue", linetype = 2) )
 #' 
@@ -60,6 +63,7 @@
 #' o2 + l_dens(type = "cond", alpha = 0.9)  + 
 #'   l_fitLine(linetype = 2, colour = "red")
 #'   
+#' \dontrun{
 #' ########
 #' # Quantile GAM example
 #' ########
@@ -68,6 +72,7 @@
 #' 
 #' plot(sm(b, 1)) + l_fitLine(linetype = 2) + l_rug(colour = "blue")
 #' }
+#'
 #' @rdname plot.mgcv.smooth.1D
 #' @export plot.mgcv.smooth.1D
 #' @export

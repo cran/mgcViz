@@ -22,6 +22,7 @@
 #' @return An object of class \code{c("plotGam", "gg")}.     
 #' @name plot.mgamViz
 #' @examples
+#' \dontrun{
 #' library(mgcViz)
 #' set.seed(2) ## simulate some data...
 #' dat <- gamSim(1,n=500,dist="normal",scale=2)
@@ -35,7 +36,6 @@
 #' 
 #' print(plot(fit, select = 1:4, allTerms = T), pages = 1)
 #' 
-#' \dontrun{
 #' # Example where we are fitting the same model to different datasets, but
 #' # plotting the estimate effects together 
 #' dat <- list()

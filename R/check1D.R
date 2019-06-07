@@ -42,10 +42,10 @@
 #' # Can't see that much
 #' ck + l_dens(type = "cond", alpha = 0.8) + l_points() + l_rug(alpha = 0.2)
 #' 
-#' \dontrun{
 #' # Some evidence of heteroscedasticity
 #' ck + l_densCheck()
 #' 
+#' \dontrun{
 #' # Compare observed residuals std dev with that of simulated data,
 #' # heteroscedasticity is clearly visible
 #' b <- getViz(b, nsim = 50)

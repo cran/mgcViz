@@ -45,11 +45,11 @@
 #' plot(sm(b, 2)) + l_fitRaster(pTrans = zto1(0.05, 2, 0.1), noiseup = TRUE) + 
 #'   l_rug() + l_fitContour()  
 #' 
-#' \dontrun{
 #' # Plot contour of effect joint density of design points
 #' plot(sm(b, 2)) + l_dens(type = "joint") + l_points() + l_fitContour() + 
 #'   coord_cartesian(expand = FALSE) # Fill the plot
 #'   
+#' \dontrun{
 #' ###
 #' # Quantile GAM example
 #' ###
@@ -57,6 +57,7 @@
 #' 
 #' plot(sm(b, 2)) + l_fitRaster(noiseup = TRUE) + l_fitContour(colour = 2)
 #' }
+#' 
 #' @importFrom mgcv exclude.too.far
 #' @rdname plot.mgcv.smooth.2D
 #' @export plot.mgcv.smooth.2D

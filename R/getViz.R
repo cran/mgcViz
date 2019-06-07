@@ -43,9 +43,18 @@ getViz <- function(o, nsim = 0, post = FALSE, newdata, ...){
   
   if( inherits(o, "mqgam") ){
     qus <- as.numeric( names(o$fit) )
+    cal <- o$calibr
     o <- qdo(o, qus, getViz, nsim = 0, post = post, newdata = newdata, ...)
     names(o) <- qus
-    class(o) <- "mgamViz"
+    # Need to add calibration information for each QGAM
+    for(ii in 1:length(qus)){ 
+      o[[ii]]$calibr <- list("lsig" = cal$lsig[ii], 
+                             "err" = cal$err[ii], 
+                             "ranges" = matrix(cal$ranges[ii, ], nrow = 1), 
+                             "store" = cal$store[ii])
+      attr(o[[ii]]$calibr, "class") <- attr(cal, "class")
+    }
+    class(o) <- c("mqgamViz", "mgamViz")
     return( o )
   }
   
