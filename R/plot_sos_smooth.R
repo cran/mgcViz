@@ -34,7 +34,6 @@
 #' @references Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for 
 #'             Generalized Additive Model Components. Scandinavian Journal of Statistics.
 #' @examples 
-#' \dontrun{
 #' library(mgcViz)
 #' set.seed(0)
 #' n <- 400
@@ -74,7 +73,6 @@
 #' # Plotting as in standard 2D plots
 #' plot(sm(bp, 1), scheme=1) + l_fitRaster() + l_fitContour() + 
 #'            l_points(shape = 19) + l_rug()
-#' }
 #' @rdname plot.sos.smooth
 #' @export plot.sos.smooth
 #' @export 

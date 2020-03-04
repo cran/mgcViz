@@ -35,6 +35,7 @@
 #'             Generalized Additive Model Components. Scandinavian Journal of Statistics.
 #' @name plot.mgcv.smooth.MD
 #' @examples 
+#' \dontrun{
 #' ## 3D example
 #' library(mgcViz)
 #' n <- 1e3
@@ -48,7 +49,6 @@
 #' plot( sm(b, 1), fix = c("z"=0) ) + l_fitRaster(noiseup = TRUE, mul = 3) + 
 #'   l_fitContour(linetype = 2) + l_points(shape =  2)
 #' 
-#' \dontrun{
 #' ## 4D
 #' n <- 5e3
 #' x <- rnorm(n); y <- rnorm(n); z <- rnorm(n); z2 <- rnorm(n)

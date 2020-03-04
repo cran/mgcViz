@@ -52,14 +52,20 @@ check0D <- function(o, type = "auto", maxpo = 1e4, na.rm = TRUE, trans = NULL, u
   
   # Get data, responses and type of residuals
   tmp <- .getDataTypeY(o = o, type = type)
-  y <- tmp$y
+  y <- as.matrix( tmp$y )
   data <- tmp$data
   type <- tmp$type
+  dy <- ncol(y)
   
   # Discard NAs
   if( na.rm ){
     good <- complete.cases(y)
-    y <- y[ good ]
+    y <- y[good,  ]
+  }
+  
+  if( dy > 1 && is.null(trans) ){
+    message("Response y is vector-valued, using trans <- function(y) drop(rowSums(y)) to reduce it to a vector")
+    trans <- function(.y, ...) drop(rowSums(.y))
   }
   
   ### 2. a) Transform simulated responses to residuals (unless type == "y")
@@ -71,7 +77,7 @@ check0D <- function(o, type = "auto", maxpo = 1e4, na.rm = TRUE, trans = NULL, u
   sub <- tmp$sub
 
   ### 3. Build output object
-  res <- data.frame("x" = y, "sub" = sub)
+  res <- data.frame("x" = y, "sub" = sub, stringsAsFactors = TRUE)
   pl <- ggplot(data = res, mapping = aes(x = x)) + theme_bw() + 
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
     labs(x = ifelse(type == "y", "y", "r"))

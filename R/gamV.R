@@ -30,7 +30,6 @@
 #' # Either way, we plot first and third effects by doing
 #' print(plot(b, select = c(1, 3)), pages = 1)
 #' 
-#' \dontrun{
 #' ##### bam example
 #' # Simulate data
 #' library(mgcViz)
@@ -43,7 +42,6 @@
 #'           
 #' # Either way, we plot first and third effects by doing
 #' print(plot(b, select = c(2)), pages = 1)
-#' }
 #' @importFrom stats gaussian
 #' @rdname gamV
 #' @export gamV
@@ -53,6 +51,11 @@ gamV <- function(formula, family = gaussian(), data = list(), method = "REML", a
   obj <- do.call("gam", c(list("formula" = formula, "family" = family, "data" = quote(data), "method" = method), aGam))
   
   obj <- do.call("getViz", c(list("o" = obj), aViz))
+  
+  # Make sure that the stored function call refers to the name of the data set provided 
+  # by the user to gamV (and available in environment where gamV was called), not just 
+  # to "data" (as in the call to gam via do.call)
+  obj$call$data <- match.call()$data
   
   return( obj )
   

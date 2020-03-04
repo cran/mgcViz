@@ -4,10 +4,21 @@
 \alias{plot.sos.smooth}
 \title{Plotting smooths on the sphere}
 \usage{
-\method{plot}{sos.smooth}(x, n = 40, xlim = NULL, ylim = NULL,
-  maxpo = 10000, too.far = 0.1, phi = 30, theta = 30,
-  trans = identity, scheme = 0, seWithMean = FALSE,
-  unconditional = FALSE, ...)
+\method{plot}{sos.smooth}(
+  x,
+  n = 40,
+  xlim = NULL,
+  ylim = NULL,
+  maxpo = 10000,
+  too.far = 0.1,
+  phi = 30,
+  theta = 30,
+  trans = identity,
+  scheme = 0,
+  seWithMean = FALSE,
+  unconditional = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a smooth effect object, extracted using \link[mgcViz:sm]{mgcViz::sm}.}
@@ -58,7 +69,6 @@ An objects of class \code{plotSmooth}.
 This is the plotting method for smooth effects on the sphere.
 }
 \examples{
-\dontrun{
 library(mgcViz)
 set.seed(0)
 n <- 400
@@ -98,7 +108,6 @@ plot(sm(bp, 1), scheme=0) + l_fitRaster() + l_fitContour() +
 # Plotting as in standard 2D plots
 plot(sm(bp, 1), scheme=1) + l_fitRaster() + l_fitContour() + 
            l_points(shape = 19) + l_rug()
-}
 }
 \references{
 Marra, G and S.N. Wood (2012) Coverage Properties of Confidence Intervals for

@@ -5,11 +5,23 @@
 \alias{gamV}
 \title{Fit a GAM model and get a gamViz object}
 \usage{
-bamV(formula, family = gaussian(), data = list(), method = "fREML",
-  aGam = list(), aViz = list())
+bamV(
+  formula,
+  family = gaussian(),
+  data = list(),
+  method = "fREML",
+  aGam = list(),
+  aViz = list()
+)
 
-gamV(formula, family = gaussian(), data = list(), method = "REML",
-  aGam = list(), aViz = list())
+gamV(
+  formula,
+  family = gaussian(),
+  data = list(),
+  method = "REML",
+  aGam = list(),
+  aViz = list()
+)
 }
 \arguments{
 \item{formula, family, data, method}{same arguments as in \link[mgcv:gam]{mgcv::gam} or \link[mgcv:bam]{mgcv::bam}.}
@@ -46,7 +58,6 @@ b <- gamV(y~s(x0)+s(x1, x2)+s(x3), data = dat,
 # Either way, we plot first and third effects by doing
 print(plot(b, select = c(1, 3)), pages = 1)
 
-\dontrun{
 ##### bam example
 # Simulate data
 library(mgcViz)
@@ -59,5 +70,4 @@ b <- bamV(y~s(x0)+s(x1, x2)+s(x3), data = dat,
           
 # Either way, we plot first and third effects by doing
 print(plot(b, select = c(2)), pages = 1)
-}
 }

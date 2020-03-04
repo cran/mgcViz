@@ -91,7 +91,7 @@ check2D <- function(o, x1, x2, type = "auto", maxpo = 1e4, na.rm = TRUE, trans =
     np <- length( x1 )
     cmb <- combn(np, 2)
     x2 <- x1[ cmb[2, , drop = TRUE] ] # This before...
-    x1 <- x1[ cmb[1, , drop = TRUE] ] # ...that
+    x1 <- x1[ cmb[1, , drop = TRUE] ] # ... that
   }
   
   if( is.list(x1) && is.list(x2) ){
@@ -113,9 +113,10 @@ check2D <- function(o, x1, x2, type = "auto", maxpo = 1e4, na.rm = TRUE, trans =
   
   # Get data, responses and type of residuals
   tmp <- .getDataTypeY(o = o, type = type)
-  y <- tmp$y
+  y <- as.matrix( tmp$y )
   data <- tmp$data
   type <- tmp$type
+  dy <- ncol(y)
 
   # Get covariate vectors: x1 or x2 are chars, get related vectors from dataframe
   xnm1 <- "x1"
@@ -134,16 +135,21 @@ check2D <- function(o, x1, x2, type = "auto", maxpo = 1e4, na.rm = TRUE, trans =
   }
   x2 <- as.vector( x2 )
   
-  if( length(x1) != length(y) || length(x2) != length(y) ){ 
+  if( length(x1) != nrow(y) || length(x2) != nrow(y) ){ 
     stop("x1 and x2 should be a vector of same lenght as residuals(o)") 
   }
   
   # Discard NAs
   if( na.rm ){
     good <- complete.cases(y, x1, x2)
-    y <- y[ good ]
+    y <- y[good, ]
     x1 <- x1[ good ]
     x2 <- x2[ good ]
+  }
+  
+  if( dy > 1 && is.null(trans) ){
+    message("Response y is vector-valued, using trans <- function(y) drop(rowSums(y)) to reduce it to a vector")
+    trans <- function(.y, ...) drop(rowSums(.y))
   }
   
   ### 2. a) Transform simulated responses to residuals (unless type == "y")
@@ -165,7 +171,7 @@ check2D <- function(o, x1, x2, type = "auto", maxpo = 1e4, na.rm = TRUE, trans =
   }
   
   ### 3. Build output object
-  res <- data.frame("x" = x1, "y" = x2, "z" = y, "sub" = sub)
+  res <- data.frame("x" = x1, "y" = x2, "z" = y, "sub" = sub, stringsAsFactors = TRUE)
   pl <- ggplot(data = res, mapping = aes(x = x, y = y, z = z)) + theme_bw() + 
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + 
     labs(x = xnm1, y = xnm2)

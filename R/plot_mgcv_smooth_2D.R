@@ -49,14 +49,12 @@
 #' plot(sm(b, 2)) + l_dens(type = "joint") + l_points() + l_fitContour() + 
 #'   coord_cartesian(expand = FALSE) # Fill the plot
 #'   
-#' \dontrun{
 #' ###
 #' # Quantile GAM example
 #' ###
 #' b <- mqgamV(y ~ s(x0) + s(x1, x2) + s(x3), qu = c(0.3, 0.7), data = dat)
 #' 
 #' plot(sm(b, 2)) + l_fitRaster(noiseup = TRUE) + l_fitContour(colour = 2)
-#' }
 #' 
 #' @importFrom mgcv exclude.too.far
 #' @rdname plot.mgcv.smooth.2D

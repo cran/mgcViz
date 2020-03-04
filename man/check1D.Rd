@@ -4,8 +4,15 @@
 \alias{check1D}
 \title{Checking GAM residuals or responses along one covariate}
 \usage{
-check1D(o, x, type = "auto", maxpo = 10000, na.rm = TRUE,
-  trans = NULL, useSim = TRUE)
+check1D(
+  o,
+  x,
+  type = "auto",
+  maxpo = 10000,
+  na.rm = TRUE,
+  trans = NULL,
+  useSim = TRUE
+)
 }
 \arguments{
 \item{o}{an object of class \code{gamViz}.}
@@ -61,7 +68,6 @@ ck + l_dens(type = "cond", alpha = 0.8) + l_points() + l_rug(alpha = 0.2)
 # Some evidence of heteroscedasticity
 ck + l_densCheck()
 
-\dontrun{
 # Compare observed residuals std dev with that of simulated data,
 # heteroscedasticity is clearly visible
 b <- getViz(b, nsim = 50)
@@ -82,6 +88,5 @@ ck + l_gridCheck1D(gridFun = sd)
 ck <- check1D(b, "logi") 
 ck + l_points() + l_rug() 
 ck + l_gridCheck1D(gridFun = sd)
-}
 
 }

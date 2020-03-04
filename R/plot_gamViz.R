@@ -34,7 +34,6 @@
 #' # Default smooth effect plotting
 #' print(plot(b), ask = FALSE)
 #' 
-#' \dontrun{
 #' # Now on one page and with out title on the second plot
 #' print(plot(b) + labs(title = NULL), pages = 1) 
 #' 
@@ -47,6 +46,7 @@
 #' # We might want to plot only the first smooth
 #' plot(b, select = 1) + l_dens(type = "cond") + l_fitLine() + l_ciLine()
 #' 
+#' \dontrun{
 #' ######## Example with "by variable" smooth effect
 #' # Simulate data and fit model
 #' dat <- gamSim(4)

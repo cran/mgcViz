@@ -4,8 +4,7 @@
 \alias{plot.gamViz}
 \title{Basic GAM plotting}
 \usage{
-\method{plot}{gamViz}(x, n = 100, n2 = 40, select = NULL,
-  allTerms = FALSE, ...)
+\method{plot}{gamViz}(x, n = 100, n2 = 40, select = NULL, allTerms = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{gamViz}, the output of a \link{getViz} call.}
@@ -48,7 +47,6 @@ b <- getViz(b)
 # Default smooth effect plotting
 print(plot(b), ask = FALSE)
 
-\dontrun{
 # Now on one page and with out title on the second plot
 print(plot(b) + labs(title = NULL), pages = 1) 
 
@@ -61,6 +59,7 @@ print(pl, pages = 1)
 # We might want to plot only the first smooth
 plot(b, select = 1) + l_dens(type = "cond") + l_fitLine() + l_ciLine()
 
+\dontrun{
 ######## Example with "by variable" smooth effect
 # Simulate data and fit model
 dat <- gamSim(4)

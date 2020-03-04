@@ -44,10 +44,8 @@
 #' pl <- plotDiff(s1 = sm(o, 1), s2 = sm(o, 2))
 #' pl + l_fitRaster() + l_fitContour()
 #' 
-#' \dontrun{
 #' # Plot p-values for differences between the two smooths
 #' pl + l_pvRaster() + l_pvContour()
-#' }
 #' 
 #' @rdname plotDiff.mgcv.smooth.2D
 #' @export plotDiff.mgcv.smooth.2D

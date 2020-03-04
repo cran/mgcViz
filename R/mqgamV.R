@@ -12,7 +12,6 @@
 #' @name mqgamV
 #' @importFrom utils packageVersion
 #' @examples 
-#' \dontrun{
 #' library(mgcViz)
 #' set.seed(2) ## simulate some data...
 #' dat <- gamSim(2,n=500,dist="normal",scale=0.25)$data
@@ -30,7 +29,6 @@
 #' 
 #' # Either way, we all effects by doing
 #' print(plot(b, allTerms = TRUE), pages = 1)
-#' }
 #' 
 #'
 #' @rdname mqgamV

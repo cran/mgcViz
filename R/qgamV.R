@@ -11,7 +11,6 @@
 #' @return An object of class "gamViz" which can, for instance, be plotted using [plot.gamViz].
 #' @name qgamV
 #' @examples 
-#' \dontrun{
 #' library(mgcViz)
 #' set.seed(2) ## simulate some data...
 #' dat <- gamSim(2,n=1000,dist="normal",scale=0.25)$data
@@ -28,7 +27,6 @@
 #' 
 #' # Either way, we all effects by doing
 #' print(plot(b, allTerms = TRUE), pages = 1)
-#' }
 #'
 #' @rdname qgamV
 #' @export qgamV
@@ -43,6 +41,11 @@ qgamV <- function(form, data, qu, lsig = NULL, err = NULL, aQgam = list(), aViz 
                                "data" = data, "lsig" = lsig, "err" = err), aQgam))
   
   obj <- do.call("getViz", c(list("o" = obj), aViz))
+  
+  # Make sure that the stored function call refers to the name of the data set provided 
+  # by the user to qgamV (and available in environment where qgamV was called), not just 
+  # to "data" (as in the call to qgam via do.call)
+  obj$call$data <- match.call()$data
   
   return( obj )
   

@@ -6,13 +6,29 @@
 \alias{plot.multi.mgcv.smooth.1D}
 \title{Plotting one dimensional smooth effects}
 \usage{
-\method{plot}{mgcv.smooth.1D}(x, n = 100, xlim = NULL, maxpo = 10000,
-  trans = identity, unconditional = FALSE, seWithMean = FALSE,
-  nsim = 0, ...)
+\method{plot}{mgcv.smooth.1D}(
+  x,
+  n = 100,
+  xlim = NULL,
+  maxpo = 10000,
+  trans = identity,
+  unconditional = FALSE,
+  seWithMean = FALSE,
+  nsim = 0,
+  ...
+)
 
-\method{plot}{multi.mgcv.smooth.1D}(x, n = 100, xlim = NULL,
-  maxpo = 10000, trans = identity, unconditional = FALSE,
-  seWithMean = FALSE, asFact = NULL, ...)
+\method{plot}{multi.mgcv.smooth.1D}(
+  x,
+  n = 100,
+  xlim = NULL,
+  maxpo = 10000,
+  trans = identity,
+  unconditional = FALSE,
+  seWithMean = FALSE,
+  asFact = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{a smooth effect object, extracted using \link[mgcViz:sm]{mgcViz::sm}.}
@@ -67,6 +83,7 @@ b <- bamV(y ~ s(x1)+s(x2), data = dat, method = "fREML", aGam = list(discrete = 
 
 o <- plot(sm(b, 1), nsim = 50) # 50 posterior simulations 
 
+\dontrun{
 # Plot with fitted effect + posterior simulations + rug on x axis
 ( o <- o + l_simLine() + l_fitLine(colour = "red") + 
        l_rug(alpha = 0.8) )
@@ -88,7 +105,6 @@ o2 + l_ciPoly(mul = 5, fill = "light blue") +
 o2 + l_dens(type = "cond", alpha = 0.9)  + 
   l_fitLine(linetype = 2, colour = "red")
   
-\dontrun{
 ########
 # Quantile GAM example
 ########

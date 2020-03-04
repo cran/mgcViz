@@ -42,6 +42,7 @@
 #' 
 #' o <- plot(sm(b, 1), nsim = 50) # 50 posterior simulations 
 #' 
+#' \dontrun{
 #' # Plot with fitted effect + posterior simulations + rug on x axis
 #' ( o <- o + l_simLine() + l_fitLine(colour = "red") + 
 #'        l_rug(alpha = 0.8) )
@@ -63,7 +64,6 @@
 #' o2 + l_dens(type = "cond", alpha = 0.9)  + 
 #'   l_fitLine(linetype = 2, colour = "red")
 #'   
-#' \dontrun{
 #' ########
 #' # Quantile GAM example
 #' ########

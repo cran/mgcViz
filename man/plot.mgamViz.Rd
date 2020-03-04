@@ -4,8 +4,7 @@
 \alias{plot.mgamViz}
 \title{Plotting multiple quantile GAMs}
 \usage{
-\method{plot}{mgamViz}(x, n = 100, n2 = 40, select = NULL,
-  allTerms = FALSE, ...)
+\method{plot}{mgamViz}(x, n = 100, n2 = 40, select = NULL, allTerms = FALSE, ...)
 }
 \arguments{
 \item{x}{an object of class \code{mgamViz}, the output of a \link{getViz} call. Alternatively x can
@@ -37,7 +36,6 @@ It is basically a wrapper around plotting methods that are specific to
 individual smooth effect classes (such as \link{plot.multi.mgcv.smooth.1D}).
 }
 \examples{
-\dontrun{
 library(mgcViz)
 set.seed(2) ## simulate some data...
 dat <- gamSim(1,n=500,dist="normal",scale=2)
@@ -51,6 +49,7 @@ fit <- mqgamV(y ~ fac + s(x0) + s(x1, x2) + x3 + logi, data = dat,
 
 print(plot(fit, select = 1:4, allTerms = T), pages = 1)
 
+\dontrun{
 # Example where we are fitting the same model to different datasets, but
 # plotting the estimate effects together 
 dat <- list()
