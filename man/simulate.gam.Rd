@@ -47,10 +47,10 @@ It must take a vector as argument, but it can output a vector or a scalar.
 Potentially useful for saving storage (e.g. by transforming each simulated vector
 to a scalar). If left to \code{NULL} then \code{trans = identity} will be used.}
 
-\item{...}{currently not used.}
+\item{...}{extra arguments passed to \code{predict.gam}.}
 }
 \value{
-A matrix where each row is a vector of simulated responses. The number of columns
+A matrix where each column is a vector of simulated responses. The number of rows
 is equal to the number of responses in the fitted object.
 }
 \description{
@@ -64,6 +64,6 @@ dat <- gamSim(1,n=400,dist="normal",scale=2)
 b <- gam(y~s(x0)+s(x1)+s(x2)+s(x3),data=dat)
 
 # Simulate three vectors of responses
-matplot(t(simulate(b, nsim = 3)), pch = 19, col = c(1, 3, 4)) 
+matplot(simulate(b, nsim = 3), pch = 19, col = c(1, 3, 4)) 
 
 }

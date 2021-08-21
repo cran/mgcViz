@@ -59,7 +59,7 @@ l_rug.Check0DScalarNumeric <- function(a){
 ######## Internal method for numeric 1D plots
 #' @noRd
 l_rug.1D <- l_rug.Multi1D <- l_rug.Check1DNumeric <- 
-  l_rug.PtermNumeric <- l_rug.Check0DVectorNumeric <- l_rug.ALE1DNumeric <- function(a){
+  l_rug.PtermNumeric <- l_rug.Check0DVectorNumeric <- l_rug.ALE1DNumeric <- l_rug.singleIndex1D <- function(a){
   
   if( is.null(a$mapping) ) { a$mapping <- aes(x = x) }
   
@@ -106,6 +106,7 @@ l_rug.2D <- l_rug.sos0 <- l_rug.sos1 <- l_rug.Check2DNumericNumeric <- l_rug.MDs
 #' @noRd
 .l_rug <- function(a){
   a$data <- a$data$res[a$data$res$sub, ]
+  if( is.null(a$data) ){ return(NULL) }
   a$inherit.aes <- FALSE
   if( is.null(a$size) ){ a$size <- 0.2 }
   

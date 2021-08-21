@@ -1,7 +1,7 @@
 Package: mgcViz
 Title: Visualisations for Generalized Additive Models
-Date: 2020-03-04
-Version: 0.1.6
+Date: 2021-08-19
+Version: 0.1.8
 Authors@R: c(person("Matteo", "Fasiolo", email = "matteo.fasiolo@gmail.com", role = c("aut", "cre")),
   person("Raphael", "Nedellec", email = "raphael.nedellec@edf.fr", role = c("aut")), 
   person("Yannig", "Goude", role = c("ctb")), 
@@ -11,16 +11,16 @@ Description: Extension of the 'mgcv' package, providing visual tools for General
 Depends: R (>= 3.4), mgcv (>= 1.8-28), qgam (>= 1.2.3), ggplot2, rgl
 Imports: gamm4, matrixStats, viridis, GGally, KernSmooth, gridExtra,
         plyr, shiny, miniUI
-Suggests: knitr, rmarkdown, testthat, MASS
+Suggests: knitr, rmarkdown, testthat, MASS, webshot2
+Additional_repositories: https://dmurdoch.github.io/drat
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 URL: https://github.com/mfasiolo/mgcViz
 BugReports: https://github.com/mfasiolo/mgcViz/issues
 NeedsCompilation: no
-Packaged: 2020-03-04 14:07:02 UTC; teo
+Packaged: 2021-08-21 14:56:54 UTC; teo
 Author: Matteo Fasiolo [aut, cre],
   Raphael Nedellec [aut],
   Yannig Goude [ctb],
@@ -28,4 +28,4 @@ Author: Matteo Fasiolo [aut, cre],
   Simon N. Wood [ctb]
 Maintainer: Matteo Fasiolo <matteo.fasiolo@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-03-04 15:10:02 UTC
+Date/Publication: 2021-08-21 23:40:02 UTC

@@ -31,7 +31,7 @@
 )
 }
 \arguments{
-\item{x}{a smooth effect object, extracted using \link[mgcViz:sm]{mgcViz::sm}.}
+\item{x}{a smooth effect object, extracted using \link{sm}.}
 
 \item{n}{number of grid points used to compute main effect and c.i. lines.
 For a nice smooth plot this needs to be several times the estimated degrees of
@@ -62,9 +62,10 @@ These can be plotted using the \link{l_simLine} layer. See Examples section belo
 \item{...}{currently unused.}
 
 \item{asFact}{determines whether to use a factor or colour bar legend for plot.multi.mgcv.smooth.1D.
-When working with models fitted with \link{mqgamV}, the default is
-\code{FALSE} for less than 10 quantiles, \code{TRUE} otherwise. For other models the
-default is \code{TRUE}.}
+For most models the default is \code{TRUE}. When working with QGAM models fitted with
+\link{mqgamV}, the default is \code{FALSE} for less than 10 quantiles,
+\code{TRUE} otherwise. For QGAM models there a third option, \code{asFact = "force"},
+which forces the use of a discrete colour scale.}
 }
 \value{
 An objects of class \code{plotSmooth}.
