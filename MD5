@@ -1,5 +1,5 @@
-8abd0926a61be58e790e0c662ba0ed90 *DESCRIPTION
-17620daa43b2f2dd1bc2a8056f9ab1f8 *NAMESPACE
+c35a6cda020c2f273a96bf6bf23943e9 *DESCRIPTION
+b980bbe966977441cb46c4d42b7abc26 *NAMESPACE
 a004d1e4d6cd50337304d7eeee0becd5 *R/ALE_gam.R
 afec74a493ab049fa64caeb3ca9f8ba2 *R/I_argMaster.R
 8dfbecb0f2d1e1b93d0b895595b02262 *R/I_argSetup.R
@@ -20,8 +20,6 @@ bdc7c4405d5408289ff2fabf56ca93e7 *R/I_multinomJacobian.R
 9cf6ac75d4e96ba428fbdd0ea9e2ce7b *R/I_plotDiffFit.R
 d4f5796b55867a32ca2c1f539a6ab253 *R/I_plot_qq_gam.R
 06dbba2aa98b6d9a3953b7631b84b687 *R/I_prepare.mgcv.smooth.R
-3000aa4729d809852fc473052f9e9f38 *R/I_prepareInnerSI.R
-4ec5872bf4ebe4e32718a91d1916bd0b *R/I_prepareNested.R
 4221e59266f16c41ebaf992309197fc6 *R/I_prepareP.R
 d5fb0b2afc03add644b0f04896f05dab *R/I_preparePlotSmooth1D.R
 389c97649b71892f925ae21fbf2d137a *R/I_preparePlotSmooth2D.R
@@ -83,8 +81,8 @@ e0b997392ca929aa9aa748925842986d *R/plot.ptermInteraction.R
 1275ea1dcfeabda3c59d94ec86ebc4cd *R/plotDiff_mgcv_smooth_1D.R
 8f8eea9926b65fa7b6dc278c905fe01a *R/plotDiff_mgcv_smooth_2D.R
 f40a405c6f93bb9cef4b8a8dee8d0cc7 *R/plotDiff_sos_smooth.R
-bda20ffe4820ac804c11eba18a201b51 *R/plotRGL_mgcv_smooth_2D.R
-59135263e393c515fb851b209dac9df8 *R/plotRGL_mgcv_smooth_MD.R
+8a729b5cded3f269eff64b206b1aad70 *R/plotRGL_mgcv_smooth_2D.R
+e5bb95ba76848b56c02af6b2f0af97fa *R/plotRGL_mgcv_smooth_MD.R
 23ce20a042c3bbddfb5acc0c56930939 *R/plotSlice.R
 4e4dad69f612ee17c384eae6236eb883 *R/plot_ALE1D.R
 e46bbabf78b5f2715fd99644befb1f10 *R/plot_fs_interaction_1D.R
@@ -105,7 +103,6 @@ bde5d6773dc198886cb500e45bcfe609 *R/plot_ptermFactor.R
 2b87583f0bf46e4c8966e7f1f9a8ac32 *R/plot_ptermLogical.R
 464071dfe3936f505ce63d2cabb97a4c *R/plot_ptermNumeric.R
 26dc1ca7726da8abb5f756a47cac45c3 *R/plot_random_effect.R
-56615f8618dd279a17f7f289c0c0bc62 *R/plot_si_smooth_1D.R
 69cb7c17950090734f40237d49516b8b *R/plot_sos_smooth.R
 248936a444241195debfac61e9875c77 *R/postSim.R
 6f0881ff7837b067ae1d42dd24dcf204 *R/print_checkGam.R
@@ -123,11 +120,11 @@ d11b75a20fe054f795a922a6315dd9da *R/simulate_gam.R
 d769b51c8d84e4fc123c84b60738bc51 *R/utilities.R
 744ad78ec7c3af33e214118f6a4a0733 *R/zoom_qqGam.R
 a52b6fe777f7a269aea588b52b69f180 *R/zzz.R
-499a6704ab5d5693415e6965ba42e9a4 *build/vignette.rds
+845e095204b15462818a5855e96b572f *build/vignette.rds
 4a71f054b7b04209307444118cf20249 *inst/CITATION
-d31a04640f030e379ca2bdc6b45da69c *inst/doc/mgcviz.R
-c7a8565aea60913f7a5c2b9f543d9d97 *inst/doc/mgcviz.html
-c9503838ea2df0cd9d3b484bb67d5b13 *inst/doc/mgcviz.rmd
+b89c76b3a3250bfc5fb421dff1b6a332 *inst/doc/mgcviz.R
+a6f2a0112d362e90cd2354295be55eb8 *inst/doc/mgcviz.html
+bb1a3e7c1ff7d0960dc0570b5c016774 *inst/doc/mgcviz.rmd
 269ad0bfad82d3e47fca8ccb702a2e56 *man/ALE.Rd
 30370a80d14ce3b5cac4fbe17e04d98a *man/ALE.gam.Rd
 de9f0ee02590c15caabf8a27ac4853f5 *man/check.gamViz.Rd
@@ -188,8 +185,8 @@ ee9e6c79171ead976941962abb356d73 *man/plotDiff.mgcv.smooth.1D.Rd
 b5698f2328bb4c9c370cefb1e56cbc66 *man/plotDiff.mgcv.smooth.2D.Rd
 6bac9361add31d2d6da8593df10756fd *man/plotDiff.sos.smooth.Rd
 65369c72ec14e451c5c56ac0bd69f943 *man/plotRGL.Rd
-4fc00574421568481efa97f0ae57192d *man/plotRGL.mgcv.smooth.2D.Rd
-03721466c7efa0b42955a924c914ed3e *man/plotRGL.mgcv.smooth.MD.Rd
+2556e89d4d5ce3b71252f9e5739989d5 *man/plotRGL.mgcv.smooth.2D.Rd
+fe7235de68a4469226fe786336562e84 *man/plotRGL.mgcv.smooth.MD.Rd
 116a090e3887bad75b26170171f5c80a *man/plotSlice.Rd
 01cce4c220d0775cc5ed5752799e2d7f *man/postSim.Rd
 d7927c48647cb793706fc37de5b3e08b *man/print.checkGam.Rd
@@ -214,4 +211,4 @@ b7033ad077735efaa463594148c003c8 *tests/testthat/Rplots.pdf
 b5774fc4d84e052f5a2b401fb6122c5b *tests/testthat/test-mvn_family.R
 d39e9d4b2b82871ec2e4986ab6512235 *tests/testthat/test-plot_gam.R
 49b1f7a612c42e004b171008f5f115bb *tests/testthat/test-postSim.R
-c9503838ea2df0cd9d3b484bb67d5b13 *vignettes/mgcviz.rmd
+bb1a3e7c1ff7d0960dc0570b5c016774 *vignettes/mgcviz.rmd

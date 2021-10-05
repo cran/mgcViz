@@ -74,6 +74,7 @@ plot(b, allTerms = TRUE, select = 4) + geom_hline(yintercept = 0)
 
 ## ----16, warning = F, webgl=TRUE----------------------------------------------
 library(mgcViz)
+library(rgl)
 n <- 500
 x <- rnorm(n); y <- rnorm(n); z <- rnorm(n)
 ob <- (x-z)^2 + (y-z)^2 + rnorm(n)
