@@ -8,7 +8,9 @@
 #' @param type if set to "link" (the default option) the model output will be the linear predictor, if
 #'             set to "response" the model output is on the scale of the response.
 #' @param nbin number of intervals into which the predictor range is divided 
-#'             when calculating the ALE effects.
+#'             when calculating the ALE effects. Ignored for factor predictors of if the \code{bins} argument is provided.
+#' @param bins a grid defining the interval into which the predictor should be binned. Determined
+#'             automatically by default. Ignored for factor predictors.
 #' @param oind relevant only when the model \code{o} has multiple linear predictors (e.g. for GAMLSS models
 #'             or for \code{multinom} regression). \code{oind} is the index of the output variable used for
 #'             the ALE effect (i.e., only \code{predict(o)[ , oind]}.
@@ -39,15 +41,23 @@
 #' 
 #' plot(ALE(b, "x2", type = "response", oind = 1))
 #' 
+#' # With manually chosen bins
+#' plot(ALE(b, "x2", type = "response", oind = 1, 
+#'          bins = c(0.1, 0.25, 0.5, 0.6, 0.9, 0.95, 0.99, 1)))
+#' 
 #' @importFrom stats model.matrix ecdf cmdscale formula
 #' @name ALE.gam
 #' @rdname ALE.gam
 #' @export ALE.gam
 #' @export
 #'
-ALE.gam <- function(o, x, newdata = NULL, type = "link", nbin = 40, oind = 1, center = 1, ...) {
+ALE.gam <- function(o, x, newdata = NULL, type = "link", nbin = 40, bins = NULL, oind = 1, center = 1, ...) {
   
   if( !(type %in% c("link", "response")) ) { stop("Argument \"type\" must be either \"link\" or \"response\"") }
+  
+  if( type == "response" && o$family$family == "multinom" ){
+    o$family$jacobian <- .multinomJacobian
+  }
   
   data <- if( !is.null(newdata) ){
     newdata
@@ -62,47 +72,51 @@ ALE.gam <- function(o, x, newdata = NULL, type = "link", nbin = 40, oind = 1, ce
     .mu <- as.matrix( predict(.o, newdata = .d, type = .t, ...) )
     return( .mu[ , oind] )
   }
-  # Same for Jacobian
+  # Same for Jacobian: this returns derivative of output w.r.t. beta (and extra parameters, theta)
   jacFun <- function(.o, .d, .t, ...){
     .f <- .o$family
-    # Case 1: special case where the Jacobian is full (not block-diagonal)
-    if( .t == "response" && .f$family %in% c("multinom", "stackPredictiveFamily")  ){ 
-      return( .multinomJacobian(.o, .d, oind, ...)  )
+    # Case 1: if family provides a Jacobian function, we use that one (via a wrapper)
+    if( .t == "response" && !is.null(.f$jacobian)  ){ 
+      return( .jacobian_wrap(.o, .d, oind, ...)  )
     } 
-    # Below we cover GAM and GAMLSS (and multinom + stack only if .t == "link")
     .x <- model.matrix(.o, newdata = .d)
-    .lpi <- attr(.x, "lpi")
+    .lpi <- attr(.o$formula, "lpi")
     if( !is.null(.lpi) ){
      .x <- .x[ , .lpi[[oind]], drop = FALSE]
     }
     # Case 2: we just return the model matrix X
     if(.t == "link"){
-      return( .x )
+      return( list("J" = .x) )
     } 
     # Case 3: we need to transform using the link function
+    .eta <- predict(.o, newdata = .d, type = "link", ...)
     if( !is.null(.lpi) ){ 
-      .eta <- predict(.o, newdata = .d, type = "link", ...)[ , oind]
-      .x <- .x * as.vector( .o$family$linfo[[oind]]$mu.eta(.eta) )
+      .x <- .x * as.vector( .o$family$linfo[[oind]]$mu.eta(.eta[ , oind]) )
     } else {                         
-      .eta <- predict(.o, newdata = .d, type = "link", ...)
       .x <- .x * as.vector( .o$family$mu.eta(.eta) ) 
     }
-    return( .x )
+    return( list("J" = .x) )
   }
   # Same for covariance function
-  varFun <- function(.o, .t, ...){
+  varFun <- function(.o, .t, .J, ...){
     .V <- vcov(.o, ...)
     .lpi <- attr(.o$formula, "lpi")
-    .respMulti <- (.o$family$family %in% c("multinom", "stackPredictiveFamily")) && (.t == "response")
-    # If we are using multinomial parametrization AND we are on response scale, 
-    # then we don't discard elements of .V (because Jacobian will be full) 
-    if( !is.null(.lpi) && !.respMulti  ) {
-      .V <- .V[.lpi[[oind]], .lpi[[oind]], drop = FALSE] 
+    # If TRUE, we are dealing with multiple linear predictors. The output of interest (mu)
+    # does not depend on all the parameters if:
+    if( !is.null(.lpi) ){ 
+        if( !is.null(.J$lpi) ){ # A) The Jacobian provides an lpi index OR...
+          .lpi <- c(unlist(.J$lpi), .J$theta_idx)
+        } else {                
+          if( is.null(.o$family$jacobian) || type == "link" ){ # B) We are in the standard GAMLSS case and/or predict on link scale
+            .lpi <- .lpi[[oind]]
+          }
+      }                         # So we keep only some elements of V
+      .V <- .V[.lpi, .lpi, drop = FALSE]
     }
     return( .V )
   }
   
-  out <- .prepare.ALE(o = o, xnam = x, data = data, type = type, K = nbin, predFun = predFun, 
+  out <- .prepare.ALE(o = o, xnam = x, data = data, type = type, K = nbin, bins = bins, predFun = predFun, 
                       jacFun = jacFun, varFun = varFun, center = center, ...)
 
   return( out )
