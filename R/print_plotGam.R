@@ -60,8 +60,8 @@ print.plotGam <- function(x, ask = TRUE, pages = NULL, addLay = TRUE, ...){
     } else { # [B] Smooth effect plots
     
     .l <- switch(.cl, 
-                 "singleIndex1D" = .l + l_fitLine() + l_ciLine() + l_rug(), 
-                 "singleIndexInner1D" = .l + l_ciBar() + l_fitPoints(), 
+                 "nested1D" = .l + l_fitLine() + l_ciLine() + l_rug(), 
+                 "siFactor" = .l + l_ciBar() + l_fitPoints(), 
                  "fs1D" = .l + l_fitLine() + theme(legend.position="none"),
                  "1D" = .l + l_fitLine() + l_ciLine() + l_rug(),
                  "2D" = .l + l_fitRaster() + l_fitContour(), 
@@ -82,6 +82,7 @@ print.plotGam <- function(x, ask = TRUE, pages = NULL, addLay = TRUE, ...){
                  "MultiPtermFactor" = .l + l_ciBar() + l_fitPoints(), 
                  "ALE1DNumeric" = .l + l_fitLine() + l_ciLine() + l_rug(),
                  "ALE1DFactor" = .l + l_ciBar() + l_fitPoints() + l_rug(),
+                 "mgks2D" = .l + l_fitRaster() + l_points(),
                   .l
                  )
     

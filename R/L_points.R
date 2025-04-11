@@ -62,7 +62,7 @@ l_points.Check2DFactorFactor <- function(a){
 
 ######## Internal method for numeric/numeric 2D plots
 #' @noRd
-l_points.2D <- l_points.Check2DNumericNumeric <- l_points.MDslice <- function(a){
+l_points.2D <- l_points.Check2DNumericNumeric <- l_points.MDslice <- l_points.mgks2D <- function(a){
   
   return( l_points.1D(a) )
   
@@ -71,7 +71,8 @@ l_points.2D <- l_points.Check2DNumericNumeric <- l_points.MDslice <- function(a)
 ######## General internal method 
 #' @noRd
 l_points.1D <- l_points.sos1 <- l_points.sos0 <- 
-l_points.Check1DNumeric <- l_points.PtermNumeric <- function(a){
+l_points.Check1DNumeric <- l_points.PtermNumeric <-
+  l_points.nested1D <- function(a){
   
   a$data <- a$data$res[a$data$res$sub, ]
   
