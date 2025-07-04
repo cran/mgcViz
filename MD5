@@ -1,5 +1,5 @@
-7bf072795c675353abba19653fb8cbc6 *DESCRIPTION
-3625448d9822adb447a69fcd7a2af5bd *NAMESPACE
+0463e8580df3bb8962b569c0cf3901f9 *DESCRIPTION
+c1a7834da058e5dc3bf46fe77b2a912c *NAMESPACE
 d3fe512e4f34f92432f0e5cfc517193c *R/ALE_gam.R
 afec74a493ab049fa64caeb3ca9f8ba2 *R/I_argMaster.R
 8dfbecb0f2d1e1b93d0b895595b02262 *R/I_argSetup.R
@@ -86,7 +86,7 @@ e0b997392ca929aa9aa748925842986d *R/plot.ptermInteraction.R
 f40a405c6f93bb9cef4b8a8dee8d0cc7 *R/plotDiff_sos_smooth.R
 de65d560b0d292d42ec1b72fa6d6b424 *R/plotRGL_mgcv_smooth_2D.R
 4526537531d8d0d74e31d820353c86fb *R/plotRGL_mgcv_smooth_MD.R
-23ce20a042c3bbddfb5acc0c56930939 *R/plotSlice.R
+8b7ef518040ff8da6ec2be6770c8662d *R/plotSlice.R
 4e4dad69f612ee17c384eae6236eb883 *R/plot_ALE1D.R
 e46bbabf78b5f2715fd99644befb1f10 *R/plot_fs_interaction_1D.R
 455b13b3e453195d929a06e455814bf8 *R/plot_gamViz.R
@@ -118,16 +118,16 @@ ccd3ab9844a336a32109bf72546db054 *R/qgamV.R
 99a518df18b2b9c9407587e19ea442dd *R/qq_gamViz.R
 4e9888b4bfd3f7934001ca766c4e9bec *R/qqplots.R
 27fa7587f60c049db69f989cdb6704ec *R/residuals_gamViz.R
-84f5a88f83c20d354bd8688adc27ed42 *R/shine.qqGam.R
+2ba2583ce156613bbd7af945c9dc8768 *R/shine.qqGam.R
 654f2624d8fe2f8a57e4ed524a0507a3 *R/simulate_gam.R
 8cb29a9b5512972a9fddd892556cb14d *R/sm.R
 d769b51c8d84e4fc123c84b60738bc51 *R/utilities.R
 744ad78ec7c3af33e214118f6a4a0733 *R/zoom_qqGam.R
 a52b6fe777f7a269aea588b52b69f180 *R/zzz.R
-3e34de3b3282f8b1f066bc59aa356cbd *build/vignette.rds
+1e3969b63055e685a72d2c39e11da530 *build/vignette.rds
 9a2dbad32e609e29cd726b251ccd951e *inst/CITATION
-b89c76b3a3250bfc5fb421dff1b6a332 *inst/doc/mgcviz.R
-09aa936fe365ce9e12657326a47e0b47 *inst/doc/mgcviz.html
+883c9edabea7fbc3a930b8531b2122fe *inst/doc/mgcviz.R
+28c3c36529403466c4b8317fca125d26 *inst/doc/mgcviz.html
 bb1a3e7c1ff7d0960dc0570b5c016774 *inst/doc/mgcviz.rmd
 269ad0bfad82d3e47fca8ccb702a2e56 *man/ALE.Rd
 4ea766fc6428f5981c92017db91e48f9 *man/ALE.gam.Rd
@@ -205,7 +205,7 @@ fc0eef9536a91c812ed2ce56a3fe0d12 *man/pterm.Rd
 2561b750d9c9d530934e9c39b46e8077 *man/qqplots.Rd
 de418ea49398763f11e23e1113bd190f *man/residuals.gamViz.Rd
 ffe72a20e0305e865057ae4bff0b1d71 *man/shine.Rd
-543f9c6d821b60378b96bd3342f92870 *man/shine.qqGam.Rd
+309b2f531bd72b85d8378c788c2275d9 *man/shine.qqGam.Rd
 18b301bcf47451159c898dfd1b251c5e *man/simulate.gam.Rd
 b990295bbcdfb0e40ec82003ebbeddf2 *man/sm.Rd
 c0d1de031e596e92781ebab85ff3611f *man/zoom.Rd

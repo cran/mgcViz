@@ -55,7 +55,7 @@ b <- getViz(b)
 print(plot(b, allTerms = T), pages = 1) # Calls print.plotGam()
 
 ## ----11a, eval = FALSE--------------------------------------------------------
-#  plot(b)
+# plot(b)
 
 ## ----13-----------------------------------------------------------------------
 pl <- plot(b, allTerms = T) + l_points() + l_fitLine(linetype = 3) + l_fitContour() + 
@@ -132,8 +132,8 @@ o
 gridPrint(o, zoom(o, xlim = c(2, 2.5), ylim = c(2, 2.5)), ncol = 2)
 
 ## ----24b, eval = FALSE--------------------------------------------------------
-#  # Cannot run this when building the pdf for this vignette, but do try it!
-#  shine(o)
+# # Cannot run this when building the pdf for this vignette, but do try it!
+# shine(o)
 
 ## ----25-----------------------------------------------------------------------
 set.seed(0)
