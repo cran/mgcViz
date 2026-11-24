@@ -31,7 +31,7 @@
 #' 
 #' # Fit GAM and get gamViz object
 #' fit <- mqgamV(y ~ fac + s(x0) + s(x1, x2) + x3 + logi, data = dat, 
-#'               qu = c(0.2, 0.4, 0.6, 0.8))
+#'               qu = c(0.2, 0.5, 0.8))
 #' 
 #' print(plot(fit, select = 1:4, allTerms = T), pages = 1)
 #' 

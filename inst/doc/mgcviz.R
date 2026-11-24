@@ -38,7 +38,7 @@ b <- getViz(b)
 plot(sm(b, 1)) + l_fitRaster() + l_fitContour() + l_points()
 
 ## ----8a, message = F, warning = F, fig.width=10, fig.height=4-----------------
-gridPrint(plot(sm(b, 1)) + l_fitRaster() + l_fitContour() + labs(title = NULL) + guides(fill=FALSE),
+gridPrint(plot(sm(b, 1)) + l_fitRaster() + l_fitContour() + labs(title = NULL) + guides(fill="none"),
           plot(pterm(b, 1)) + l_ciPoly() + l_fitLine(), ncol = 2)
 
 ## ----9------------------------------------------------------------------------

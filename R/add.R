@@ -3,9 +3,6 @@
 #'
 #' @param e1 an object of class \code{plotSmooth}.
 #' @param e2 a plot component, as described below.
-# #' @export
-#' @method + plotSmooth
-# #' @rdname plotSmooth-add
 #' @noRd
 #'
 addPlotSmooth <- function(e1, e2) {
@@ -14,7 +11,7 @@ addPlotSmooth <- function(e1, e2) {
   
   # If e2 is a gamLayer, we need to call the corresponding layer internal.
   # This returns either a ggplot or a list of ggplots (with class listOfLayers)
-  if( "gamLayer" %in% class(e2) ){
+  if (inherits(e2, "gamLayer")) {
     empty <- FALSE
     e2$arg$data <- e1$data 
     fun <- tryCatch(get( paste(e2$fun, ".", paste(e1$type, collapse = ''), sep = '') ), 
@@ -32,14 +29,14 @@ addPlotSmooth <- function(e1, e2) {
   }
   
   # If e2 is a "listOfLayers" (list of ggplots) add them one by one.
-  # Calling directly ggplot %+% here.
-  if( "listOfLayers" %in% class(e2) ){
+  # Calling directly .addGGplot2() here because we are adding 2 ggplot objects.
+  if (inherits(e2, "listOfLayers")) {
     empty <- FALSE
-    for(ii in 1:length(e2)){
-      e1$ggObj <- e1$ggObj %+% e2[[ii]]
-    } 
+    for (ii in seq_along(e2)) {
+      e1$ggObj <- .addGGplot2(e1$ggObj, e2[[ii]])
+    }
   } else {
-    e1$ggObj <- e1$ggObj %+% e2
+    e1$ggObj <- .addGGplot2(e1$ggObj, e2)
   }
   
   e1$empty <- empty
@@ -53,9 +50,6 @@ addPlotSmooth <- function(e1, e2) {
 #'
 #' @param e1 an object of class \code{plotGam}.
 #' @param e2 a plot component, as described below.
-# #' @export
-#' @method + plotGam
-# #' @rdname plotGam-add
 #' @noRd
 #'
 addPlotGam <- function(e1, e2) {
@@ -65,7 +59,7 @@ addPlotGam <- function(e1, e2) {
                      function(.l){
                        return( withCallingHandlers(.l + e2,
                                                    warning = function(w){ 
-                                                     if(any(grepl("layer available for type", w))){ 
+                                                     if(any(grepl("layer available for type", conditionMessage(w)))){ 
                                                        invokeRestart( "muffleWarning" )
                                                      }
                                                    }) )
@@ -82,30 +76,49 @@ addPlotGam <- function(e1, e2) {
   return( e1 )
 }
 
-
 #' @export
+#' @method + gg
 "+.gg" <- function(e1, e2) {
   
-  if( inherits(e1, "plotSmooth") ){
-    
-    return( addPlotSmooth(e1, e2) )
-    
-  } else { 
-    
-    if( inherits(e1, "plotGam") ){
-      
-      return( addPlotGam(e1, e2) )
-      
-    } else { # ggplot2 addition %+%
-      
-      return( e1 %+% e2 )
-      
-    }
-    
-  } 
+  if (inherits(e1, "plotSmooth")) {
+    return(addPlotSmooth(e1, e2))
+  }
   
+  if (inherits(e1, "plotGam")) {
+    return(addPlotGam(e1, e2))
+  }
+  
+  .addGGplot2(e1, e2)
 }
 
-#' #' @rdname plotSmooth-add
-#' #' @export
-#' "%+%" <- `+.plotSmooth`
+# Prefer mgcViz's addition method over a component's Ops method (e.g.
+# Ops.ggproto registered by S7). Only handle a plot on the left of `+`.
+# These methods are registered conditionally in .onLoad for R >= 4.3.0.
+#' @exportS3Method NULL
+#' @noRd
+chooseOpsMethod.plotSmooth <- function(x, y, mx, my, cl, reverse) {
+  !reverse && identical(mx, `+.gg`)
+}
+
+#' @exportS3Method NULL
+#' @noRd
+chooseOpsMethod.plotGam <- chooseOpsMethod.plotSmooth
+
+#' Add a ggplot layer to a ggplot object using ggplot2's own machinery.
+#'
+#' This avoids calling `e1 + e2` from inside `+.gg`, which would recurse
+#' back into itself, and avoids `%+%`, which is soft-deprecated in
+#' ggplot2 >= 4.0.0.
+#' @noRd
+.addGGplot2 <- function(e1, e2) {
+  
+  if (utils::packageVersion("ggplot2") >= "4.0.0") {
+    return(ggplot2::add_gg(e1, e2))
+  }
+  
+  # This is run only for ggplot2 < 4.0.0, where add_gg() is not available and 
+  # the use of %+% was not soft-deprecated.
+  ggplot2::`%+%`(e1, e2)
+}
+
+

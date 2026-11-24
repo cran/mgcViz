@@ -1,7 +1,7 @@
 Package: mgcViz
 Title: Visualisations for Generalized Additive Models
-Date: 2025-07-2
-Version: 0.2.1
+Date: 2026-11-24
+Version: 0.2.3
 Authors@R: c(person("Matteo", "Fasiolo", email = "matteo.fasiolo@gmail.com", role = c("aut", "cre")),
   person("Raphael", "Nedellec", email = "raphael.nedellec@edf.fr", role = c("aut")), 
   person("Yannig", "Goude", role = c("ctb")), 
@@ -15,12 +15,12 @@ Suggests: shiny, miniUI, rgl, knitr, rmarkdown, testthat, MASS,
         webshot2
 License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 URL: https://github.com/mfasiolo/mgcViz
 BugReports: https://github.com/mfasiolo/mgcViz/issues
+Config/roxygen2/version: 8.0.0
 NeedsCompilation: no
-Packaged: 2025-07-03 15:36:40 UTC; mf15002
+Packaged: 2026-11-24 10:51:56 UTC; mf15002
 Author: Matteo Fasiolo [aut, cre],
   Raphael Nedellec [aut],
   Yannig Goude [ctb],
@@ -28,4 +28,4 @@ Author: Matteo Fasiolo [aut, cre],
   Simon N. Wood [ctb]
 Maintainer: Matteo Fasiolo <matteo.fasiolo@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-07-04 09:50:02 UTC
+Date/Publication: 2026-11-24 13:30:17 UTC
